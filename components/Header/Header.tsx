@@ -48,9 +48,10 @@ export function Header() {
      text-white z-50  top-[0px]
       sticky py-3"
       >
-        <div className="cursor-pointer flex justify-center items-center gap-5">
+        <Link href="/" className="cursor-pointer flex justify-center items-center gap-5">
+      
           {/* logo */}
-         <div className="border-r border-dashed border-gray-500 pr-5">
+          <div className="border-r border-dashed border-gray-500 pr-5">
          <LazyLoadImage
             src={jedstar_logo_only.src}
             width={50}
@@ -71,7 +72,7 @@ export function Header() {
          </div>
 
 
-        </div>
+        </Link>
         {/* logo */}
 
         {/* ul */}

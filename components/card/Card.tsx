@@ -11,7 +11,7 @@ type Props = {
 export function Card({ carddata }: Props) {
   const router = useRouter();
   const RedirectBuypage = () => {
-    router.push("/");
+    router.push("/buy");
   };
 
   return (

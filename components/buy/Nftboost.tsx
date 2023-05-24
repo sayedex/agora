@@ -26,7 +26,7 @@ const Bost = [
     trait_type: "Silvervolt Lottery 2nd Ticket Cost",
     value: 5,
   },
-    {
+  {
     trait_type: "Silvervolt Lottery 2nd Ticket Cost",
     value: 5,
   },
@@ -37,14 +37,25 @@ type Props = {};
 export function Nftboost({}: Props) {
   return (
     <div>
-      <div className="flex flex-col gap-y-3 mb-5">
+      <p className="py-5">
+        This NFT offers utility across the JEDSTAR universe of apps and games.
+      </p>
+      <div className="flex flex-col gap-y-3 mb-5 pt-5">
         <div>
           <LazyLoadImage src={SILVERVOLT_LOGO.src} className="h-14" />
         </div>
         <p>
           This NFT offers various in app Boosts and Upgrades to our SILVERVOLT
           gaming product. Sign up and top off your favorite games for FREE at
-         <a className="text-[#1C84FE]" href="http://" target="_blank" rel="noreferrer"> www.silvervolt.app</a>
+          <a
+            className="text-[#1C84FE]"
+            href="http://"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {" "}
+            www.silvervolt.app
+          </a>
         </p>
       </div>
 

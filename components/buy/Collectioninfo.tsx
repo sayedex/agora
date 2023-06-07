@@ -5,9 +5,14 @@ import { Description } from "./Description";
 import {Attributes} from "./Attributes";
 import { Nftboost } from "./Nftboost";
 import {Coming} from "./Coming"
-type Props = {};
+import { product } from "../../store/productSlice";
+type Props = {
+  product:product
+};
 
-export function Collectioninfo({}: Props) {
+export function Collectioninfo({product}: Props) {
+  const {description,_id,name,productid,imgUrl,rarity,series,maxmint,minted,Type,mint,character} = product;
+
   return (
     <div className="flex-1 flex flex-col gap-y-5">
       {/* titile */}
@@ -42,7 +47,7 @@ export function Collectioninfo({}: Props) {
 
       {/* buy now */}
       <div className="pt-10 flex flex-col gap-y-3">
-        <p>26 minted</p>
+        <p>{minted} minted</p>
         <button
           className=" text-sm  w-fit
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap uppercase  bg_btn_gr"
@@ -52,7 +57,7 @@ export function Collectioninfo({}: Props) {
       </div>
       {/* buy now */}
       {/* Description */}
-      <Description/>
+      <Description description={description}/>
        {/* Description */}
        {/* Attributes */}
        <Attributes/>

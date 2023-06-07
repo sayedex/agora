@@ -5,16 +5,12 @@ import gql from "graphql-tag";
 
 interface PoolsState {
   isRender: boolean;
-  tokenPrice: string;
-  tokensSold: string;
-  totalToken: string;
+
 }
 
 const initialState: PoolsState = {
   isRender: false,
-  tokenPrice: "",
-  tokensSold: "",
-  totalToken: "",
+
 };
 
 // Define the slice for pools data and token prices

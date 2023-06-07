@@ -1,8 +1,10 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+  description:string
+};
 
-export function Description({}: Props) {
+export function Description({description}: Props) {
   return (
     <div>
       <div>

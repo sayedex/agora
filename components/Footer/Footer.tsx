@@ -43,7 +43,7 @@ function Footer() {
               <a href="">
                 <LazyLoadImage
                   className="max-w-[36px]"
-                  src={`icon/${e.name}.png`}
+                  src={e.icon}
                   alt={e.name}
                 />
               </a>

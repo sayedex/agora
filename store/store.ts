@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import walletSlice from "./walletSlice"
+import walletSlice from "./walletSlice";
+import Addproduct from "./productSlice";
+import userSlice from "./userSlice"
 const store = configureStore({
     reducer: {
-        wallet:walletSlice
+        wallet:walletSlice,
+        product:Addproduct,
+        user:userSlice
 
     },
 });

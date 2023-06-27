@@ -4,7 +4,9 @@ import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import { addProduct } from "./reducers/addproduct";
 import { getupdateinfo,updateProduct } from "./reducers/updateproduct";
-import { getproductALL } from "./reducers/product";
+import { getproductALL,getfeaturedproduct } from "./reducers/product";
+
+
 
 export interface product{
   name: string;
@@ -15,19 +17,28 @@ export interface product{
   maxmint: number;
   Type: string;
   _id: string;
-  rarity: string;
+  rarity:"SecretRare" | "Uncommon" | "UltraRare" | "Rare" | "Common";
   series: string;
   character: string;
   mint: string;
   value:number
+  USD:number,
+  paymentTokens?:[{
+    name:string,
+    id:string,
+    price:number
+  }]
 }
 
 
 interface productState {
   isRender: boolean;
   loading: "idle" | "pending" | "done" | "error";
+  addproductLoad: "idle" | "pending" | "done" | "error";
+  loadbuypageProduct:"idle" | "pending" | "done" | "error";
   error: any;
   product: product | null
+  productfeatured: product[] | []
   allproduct:product[] | []
 }
 
@@ -36,7 +47,10 @@ const initialState: productState = {
   loading: "idle",
   error: null,
   product: null,
-  allproduct:[]
+  addproductLoad:'idle',
+  allproduct:[],
+  productfeatured:[],
+  loadbuypageProduct:'idle'
 };
 
 // Define the slice for pools data and token prices
@@ -51,30 +65,30 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addProduct.pending, (state) => {
-        state.loading = "pending";
+        state.addproductLoad = "pending";
         state.error = null;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
-        state.loading = "done";
+        state.addproductLoad = "done";
         // state.products.push(action.payload);
         console.log(action.payload);
       })
       .addCase(addProduct.rejected, (state, action) => {
-        state.loading = "error";
+        state.addproductLoad = "error";
         state.error = action.payload;
       }),
       builder
       .addCase(getupdateinfo.pending, (state) => {
-        // state.loading = "pending";
+         state.loadbuypageProduct = "pending";
         state.error = null;
       })
       .addCase(getupdateinfo.fulfilled, (state, action) => {
-        // state.loading = "done";
+         state.loadbuypageProduct = "done";
        state.product =action.payload.product;
-        console.log(action.payload);
+
       })
       .addCase(getupdateinfo.rejected, (state, action) => {
-        // state.loading = "error";
+       state.loadbuypageProduct = "error";
         state.error = action.payload;
       }),
       builder
@@ -103,6 +117,21 @@ const productSlice = createSlice({
         
       })
       .addCase(getproductALL.rejected, (state, action) => {
+         state.loading = "error";
+        state.error = action.payload;
+      }),
+      builder
+      .addCase(getfeaturedproduct.pending, (state) => {
+       state.loading = "pending";
+        
+        state.error = null;
+      })
+      .addCase(getfeaturedproduct.fulfilled, (state, action) => {
+       state.loading = "done";
+       state.productfeatured =action.payload.product;
+        
+      })
+      .addCase(getfeaturedproduct.rejected, (state, action) => {
          state.loading = "error";
         state.error = action.payload;
       });

@@ -1,10 +1,10 @@
 import React from "react";
-import { nftData } from "../../typeing";
+import { product } from "../../store/productSlice";
 import { Card } from "../card/Card";
 import dummuyImage from "../../public/nft/pic_TONY.webp";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 type Props = {
-  data: nftData[];
+  data: product[];
   cetagory: string;
 };
 
@@ -47,7 +47,7 @@ export function Featured({ data, cetagory }: Props) {
         {/* here is Artist info.... */}
 
         <div className="flex justify-start flex-wrap gap-5 pt-10 md:pt-0  pb-[100px]">
-          {data.map((el: nftData) => {
+          {data.map((el: product) => {
             return <Card carddata={el} />;
           })}
         </div>

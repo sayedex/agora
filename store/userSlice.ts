@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getuserlogin, getuserMe } from "./reducers/userlogin";
-
+import { getuserlogin, getuserMe,getNFT } from "./reducers/userlogin";
+import { BuynftUser } from "./reducers/buy";
 interface balance {
   amount:number,
   token:token
@@ -16,10 +16,14 @@ interface userState {
   issignIn: boolean;
   isActive: boolean;
   loading: "idle" | "pending" | "done" | "error";
+  nftloading: "idle" | "pending" | "done" | "error";
+  buyloading:"idle" | "pending" | "done" | "error";
   user:{
     balances:balance[],
     wallet:string,
   } | null
+
+  nftBalance:[]
 
 }
 
@@ -27,7 +31,10 @@ const initialState: userState = {
   issignIn: false,
   isActive: false,
   loading: "idle",
-  user:null
+  nftloading:'idle',
+  buyloading:'idle',
+  user:null,
+  nftBalance:[]
 };
 
 // Define the slice for pools data and token prices
@@ -46,8 +53,10 @@ const userSlice = createSlice({
       })
       .addCase(getuserlogin.fulfilled, (state, action) => {
         state.loading = "done";
-        if (action.payload.success == true) {
+        if (action.payload.success == true ) {
           state.issignIn = true;
+          console.log("update");
+          
         } else {
           state.issignIn = false;
         }
@@ -64,15 +73,38 @@ const userSlice = createSlice({
         state.loading = "done";
         console.log(action.payload);
         
-        if (action.payload.success == true) {
+        if (action.payload.user.success == true && action.payload.wallet ==  action.payload.user.user.wallet) {
           state.isActive = true;
-          state.user = action.payload.user;
+          state.user = action.payload.user.user;
         } else {
           state.isActive = false;
         }
       })
       .addCase(getuserMe.rejected, (state, action) => {
         state.loading = "error";
+      }),
+      builder
+      .addCase(getNFT.pending, (state) => {
+        state.nftloading = "done";
+      })
+      .addCase(getNFT.fulfilled, (state, action) => {
+        state.nftloading = "done";
+       state.nftBalance = action.payload.nft
+        
+      
+      })
+      .addCase(getNFT.rejected, (state, action) => {
+        state.nftloading = "done";
+      }),
+      builder
+      .addCase(BuynftUser.pending, (state) => {
+        state.buyloading = 'pending';
+      })
+      .addCase(BuynftUser.fulfilled, (state, action) => {
+        state.buyloading = "done";
+      })
+      .addCase(BuynftUser.rejected, (state, action) => {
+        state.buyloading = 'error';
       })
   },
 });

@@ -10,6 +10,12 @@ export const HeaderList = [
         islink: false,
       },
       {
+       name:"My Agora",
+       link: "/yournft",
+       islink: false,
+       route:true
+      },
+      {
         name: "My Credit",
         link: "/me/user",
         islink: true,

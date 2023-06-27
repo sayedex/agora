@@ -21,3 +21,12 @@ export const Manu = [
     
     // }
 ]
+
+export const orderManu = [
+    {
+        name:"All order",
+        // icon:CgProfile,
+        link:"/admin/allorder"
+    
+    },
+]

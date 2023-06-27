@@ -14,3 +14,16 @@ export const getproductALL = createAsyncThunk(
     }
 );
 
+export const getfeaturedproduct = createAsyncThunk(
+    "product/getfeaturedproduct",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await productService.getfeaturedproduct();
+            return response.data;
+
+        } catch (error: any) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+

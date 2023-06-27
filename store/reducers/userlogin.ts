@@ -17,9 +17,23 @@ export const getuserlogin = createAsyncThunk(
 
 export const getuserMe = createAsyncThunk(
     "user/me",
-    async (_, { rejectWithValue }) => {
+    async (params:{wallet:string}, { rejectWithValue }) => {
         try {
             const response = await userService.getuser();
+            const user = response.data
+            return {user,wallet:params.wallet};
+
+        } catch (error: any) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const getNFT = createAsyncThunk(
+    "user/NFTbalance",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await userService.getNFT();
             return response.data;
 
         } catch (error: any) {

@@ -25,7 +25,8 @@ interface product{
   series: string  | undefined;
   character: string  | undefined;
   mint: string  | undefined;
-  value:string  | undefined
+  value:string  | undefined,
+  featured:boolean
 }
 
 function add({ mode, id }: Props) {
@@ -41,19 +42,19 @@ function add({ mode, id }: Props) {
     series: "",
     character: "",
     mint: "",
-    value: ""
+    value: "",
+    featured:false
   });
   const dispath = useAppdispatch();
-  const { loading, product } = useAppSelector((state) => state.product);
-  const { description,_id,name,productid,imgUrl,rarity:apiratity,series,maxmint,Type,mint,character}  = product || {};
+  const { loading, product,addproductLoad } = useAppSelector((state) => state.product);
+  const { description,_id,name,productid,imgUrl,rarity:apiratity,series,maxmint,Type,mint,character,USD}  = product || {};
 
-  // useEffect(() => {
-  //   if (loading == "done") {
-  //     // window.alert("nice done ");
-  //     // will push to dashboard..
-  //     router.push("/admin/allproduct");
-  //   }
-  // }, [loading]);
+  useEffect(() => {
+     if (addproductLoad == "done") {
+       router.push("/admin/allproduct");
+      }
+ }, [addproductLoad]);
+ 
 
   useEffect(() => {
     if (mode == "update" && id) {
@@ -79,7 +80,9 @@ function add({ mode, id }: Props) {
         rarity: apiratity,
         series: series,
         character: character,
-        mint: mint
+        mint: mint,
+        value:USD?.toString()
+      
       });
     }
   }, [product]);
@@ -102,6 +105,7 @@ function add({ mode, id }: Props) {
   const handleSubmit = async() => {
     if (mode === "add") {
       await  dispath(addProduct({ productData: inputs }));
+     // router.push('/admin/allproduct');
     } else if (mode === "update" && id) {
       await dispath(
         updateProduct({
@@ -111,6 +115,13 @@ function add({ mode, id }: Props) {
       );
   
     }
+  };
+
+  const handleCheckboxChange = () => {
+    setInputs({
+      ...inputs,
+      featured:!inputs.featured 
+    });
   };
 
   return (
@@ -171,6 +182,14 @@ function add({ mode, id }: Props) {
           value={inputs.maxmint}
           onChange={handleInputChange}
         />
+         <label className="text-black flex flex-row gap-3">
+        <input
+          type="checkbox"
+          checked={inputs.featured}
+          onChange={handleCheckboxChange}
+        />
+        Show featured products
+      </label>
         <div>
           <label className="capitalize">rarity</label>
           <select

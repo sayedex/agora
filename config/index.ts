@@ -4,23 +4,30 @@ export const NFT_PRICE = "0.001"
 
 
 export const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
+    "Common",
+    "Battle Ready",
+    "Jed's Journey",
+    "Jed's Journey",
+    "Aaron Miller",
+    "Founder's Mint",
   ];
 
 export const rarity  =[
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
+    "Secret Rare",
+    "Uncommon",
+    "Ultra Rare",
+    "Rare",
+    "Common",
 ]  
+
+
+export const RareColor  ={
+  SecretRare:"#E431FF",
+  Uncommon:"#318DFF",
+  UltraRare:"#31FF5D",
+  Rare:"#FFD131",
+  Common:"#D9D9D9"
+}
 
 
 

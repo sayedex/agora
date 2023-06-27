@@ -67,14 +67,17 @@ body {
       @apply  flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900  p-2 rounded-md  cursor-pointer hover:shadow-lg m-auto
      }
      .sidebaricon {
-      @apply text-2xl text-black group-hover:text-white hover:text-white
+      @apply text-2xl text-white group-hover:text-white hover:text-white
      }
      .sidebartext {
-      @apply text-base text-black group-hover:text-white font-semibold 
+      @apply text-base text-white group-hover:text-white font-semibold 
      }
     .adminpanelcomponent{
       @apply relative bg-[#ebebeb] overflow-y-auto overflow-x-hidden flex-1 z-10 
     }
+  .text_transparent_grcolor{
+    @apply bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent
+  }
    
 }
 

@@ -10,21 +10,24 @@ import {
   getDefaultClient,
 } from "connectkit";
 // import { ApolloProvider } from '@apollo/react-hooks';
+import 'react-toastify/dist/ReactToastify.css';
 
 import store from "../store/store";
 import { Provider } from "react-redux";
 import Layout from "../Layout/layout";
-import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
   return (
     <>
-      <Toaster />
+ 
       <WagmiConfig client={client}>
         <ConnectKitProvider>
           <Provider store={store}>
+         
             <Layout pathname={pathname}>
+            <ToastContainer />
               <Component {...pageProps} />
             </Layout>
           </Provider>

@@ -4,6 +4,7 @@ import { Collectioninfo } from "../../components/buy/Collectioninfo";
 import { useAppSelector, useAppdispatch } from "../../hooks/redux";
 import { useRouter } from "next/router";
 import { getupdateinfo } from "../../store/reducers/updateproduct";
+import LoadSpinner from "../../components/Loading/Load";
 
 type Props = {};
 function index({}: Props) {
@@ -28,10 +29,10 @@ function index({}: Props) {
       <div className="p-4 md:p-10">
       {
         product?  <div className="flex flex-col md:flex-row gap-10 relative mb-6">
-        <CollectionImage imageUrl="nft/11.jpg" />
+        <CollectionImage imageUrl={product.imgUrl} />
         <Collectioninfo product={product} />
-      </div>:null
-      }
+      </div>:<LoadSpinner/>
+      } 
       </div>
     </div>
   );

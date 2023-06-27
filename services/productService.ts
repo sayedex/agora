@@ -22,6 +22,15 @@ const productService = {
   getproductALL: () => {
     return newRequest.get(`/product/allproducts`);
   },
+  getorderALL: (page:number) => {
+    return newRequest.get(`/order/getAllorder?page=${page}&limit=10`);
+  },
+  getalldatacount:()=>{
+    return newRequest.get(`/info/getalldata`);
+  },
+  getfeaturedproduct:()=>{
+    return newRequest.get(`/product/getfeaturedproduct?limit=100`);
+  },
 };
 
 

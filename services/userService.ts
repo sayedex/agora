@@ -9,6 +9,12 @@ const userService = {
   },
   getuser: () => {
     return newRequest.get('/user/user');
+  },
+  getNFT:()=>{
+    return newRequest.post('/user/usernft');
+  },
+  Buynft:(data:any)=>{
+    return newRequest.post('/product/Buynft',data);
   }
 };
 

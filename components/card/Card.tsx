@@ -4,6 +4,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import dummyiimage from "../../public/nft/0.jpg";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import LayerIMG from "../../public/IMG/layer.png";
+import { RareColor } from "../../config";
 type Props = {
   carddata: product;
 };
@@ -14,11 +16,16 @@ export function Card({ carddata }: Props) {
     router.push(`/buy?id=${carddata._id}`);
   };
 
+  const { rarity } = carddata;
+  const rarityText = String(rarity).replace(/\s/g, ""); 
+  const secretRareColor = RareColor[rarityText as keyof typeof RareColor];
+
+
   return (
     <div className="md:max-w-[253px] bg-gradient-to-b from-gray-700 to-transparent ">
       {/* image  */}
       <div className="p-1">
-        <LazyLoadImage src={dummyiimage.src} alt="image" />
+        <LazyLoadImage  placeholderSrc={LayerIMG.src} src={carddata.imgUrl || dummyiimage.src} alt="image" />
       </div>
       {/* image  */}
 
@@ -34,7 +41,7 @@ export function Card({ carddata }: Props) {
 
       {/* rarity */}
       <div className="px-2">
-        <p className="bg-[#E431FF] w-fit px-1">{carddata.rarity}</p>
+        <p className={`bg-[${secretRareColor}] w-fit px-1`}>{carddata.rarity}</p>
       </div>
 
       {/* rarity */}
@@ -42,7 +49,7 @@ export function Card({ carddata }: Props) {
       {/* price */}
       <div className="px-2 mt-4">
         <p className="text-lg text-[#827A8E] font-medium uppercase">Price</p>
-        <p className="text-white ">USDC 100</p>
+        <p className="text-white ">{carddata.USD}USDC</p>
       </div>
 
       {/* price */}

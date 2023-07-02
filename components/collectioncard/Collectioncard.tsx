@@ -19,8 +19,8 @@ export function Collectioncard({ data, cetagory }: Props) {
       </h1>
 
       <div className="flex justify-start flex-wrap gap-5 pt-10 pb-[100px]">
-        {items.map((el: product) => {
-          return <Card carddata={el} />;
+        {items.map((el: product,indx) => {
+          return <Card carddata={el} key={indx} />;
         })}
       </div>
     </div>

@@ -47,8 +47,8 @@ export function Featured({ data, cetagory }: Props) {
         {/* here is Artist info.... */}
 
         <div className="flex justify-start flex-wrap gap-5 pt-10 md:pt-0  pb-[100px]">
-          {data.map((el: product) => {
-            return <Card carddata={el} />;
+          {data.map((el: product,indx) => {
+            return <Card carddata={el} key={indx} />;
           })}
         </div>
       </div>

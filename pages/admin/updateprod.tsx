@@ -5,7 +5,7 @@ import React from 'react'
 
 type Props = {}
 
-function updateprod({}: Props) {
+function Updateprod({}: Props) {
     const router = useRouter();
     const { id } = router.query;
 
@@ -18,4 +18,4 @@ function updateprod({}: Props) {
   )
 }
 
-export default updateprod
+export default Updateprod

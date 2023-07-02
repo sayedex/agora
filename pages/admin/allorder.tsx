@@ -19,7 +19,7 @@ interface DataType {
   paymentToken: string;
 }
 
-function allorder({}: Props) {
+function Allorder({}: Props) {
   const [orderlist, setorderlist] = useState<DataType[]>([]);
 
   const [page, setPage] = useState(1);
@@ -115,4 +115,4 @@ function allorder({}: Props) {
   );
 }
 
-export default allorder;
+export default Allorder;

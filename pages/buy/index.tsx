@@ -7,7 +7,7 @@ import { getupdateinfo } from "../../store/reducers/updateproduct";
 import LoadSpinner from "../../components/Loading/Load";
 
 type Props = {};
-function index({}: Props) {
+function Buynft({}: Props) {
   const dispath = useAppdispatch();
   const {product}=useAppSelector((state)=>state.product);
   const router = useRouter();
@@ -38,4 +38,4 @@ function index({}: Props) {
   );
 }
 
-export default index;
+export default Buynft;

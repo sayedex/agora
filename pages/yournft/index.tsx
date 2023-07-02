@@ -7,7 +7,7 @@ import NotConneted from "../../components/user/NotConneted";
 import LoadSpinner from "../../components/Loading/Load";
 type Props = {};
 
-function index({}: Props) {
+function Yournft({}: Props) {
   const { nftloading, nftBalance, issignIn, isActive } = useAppSelector(
     (state) => state.user
   );
@@ -34,7 +34,7 @@ function index({}: Props) {
             <LoadSpinner />
           ) : (
             nftBalance?.map((e, index) => {
-              return <Nft nft={e}/>;
+              return <Nft  key={index} nft={e}/>;
             })
           )}
         </div>
@@ -45,4 +45,4 @@ function index({}: Props) {
   );
 }
 
-export default index;
+export default Yournft;

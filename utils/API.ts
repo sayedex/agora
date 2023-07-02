@@ -6,7 +6,7 @@ const apiUrl = process.env.NODE_ENV === 'production' ? process.env.API_URL : 'ht
 
 
 const newRequest = axios.create({
-  baseURL:apiUrl ,
+  baseURL:"https://api.cipherem.xyz/api" ,
   withCredentials: true,
 });
 

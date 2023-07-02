@@ -8,7 +8,7 @@ interface state{
   user:number
 }
 
-function dashboard({}: Props) {
+function Dashboard({}: Props) {
   const [data, setdata] = useState<state>();
 
   useEffect(() => {
@@ -34,4 +34,4 @@ function dashboard({}: Props) {
   );
 }
 
-export default dashboard;
+export default Dashboard;

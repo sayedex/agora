@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FotterItem } from "../../config/Fotter/Config";
-import { PopupforPlatfroms } from "../Popup/PopupforPlatfroms";
+import PopupforPlatfroms from "../Popup/PopupforPlatfroms";
 function Footer() {
   const PlatformsModel = useRef<{
     openPopup: () => void;
@@ -38,9 +38,9 @@ function Footer() {
 
         {/* social icon */}
         <div className="flex gap-2">
-          {FotterItem?.map((e) => {
+          {FotterItem?.map((e,indx) => {
             return (
-              <a href="">
+              <a href="" key={indx}>
                 <LazyLoadImage
                   className="max-w-[36px]"
                   src={e.icon}

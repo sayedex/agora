@@ -29,7 +29,7 @@ interface product{
   featured:boolean
 }
 
-function add({ mode, id }: Props) {
+function Addpd({ mode, id }: Props) {
   const router = useRouter();
   const [inputs, setInputs] = useState<product>({
     name: "",
@@ -238,4 +238,4 @@ function add({ mode, id }: Props) {
   );
 }
 
-export default add;
+export default Addpd;

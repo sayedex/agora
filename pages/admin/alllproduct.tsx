@@ -20,7 +20,7 @@ interface DataType {
   USD: number;
 }
 
-function allproduct({}: Props) {
+function Allproduct({}: Props) {
   const [products, setProducts] = useState<DataType[]>([]);
 
   const [page, setPage] = useState(1);
@@ -129,4 +129,4 @@ function allproduct({}: Props) {
   );
 }
 
-export default allproduct;
+export default Allproduct;

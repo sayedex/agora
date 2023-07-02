@@ -8,7 +8,7 @@ import NotConneted from "../../components/user/NotConneted";
 import { useAccount } from "wagmi";
 type Props = {};
 
-function user({}: Props) {
+function User({}: Props) {
   const dispatch = useAppdispatch();
   const {address} = useAccount()
   const { user, isActive,issignIn } = useAppSelector((state) => state.user);
@@ -74,4 +74,4 @@ function user({}: Props) {
   );
 }
 
-export default user;
+export default User;

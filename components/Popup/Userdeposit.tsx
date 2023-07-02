@@ -72,14 +72,14 @@ export const Userdeposit = forwardRef((pros: Props, ref: any) => {
 
             <div className="w-full md:w-[70%] text-xl">
                 {depositInfo1?.map((e,index)=>{
-                    return <p className="py-2">{e}</p>
+                    return <p className="py-2" key={index}>{e}</p>
                 })}
                 <p>Accepted currencies:<span className='font-extrabold'> $KRED, USDT & USDC. </span></p>
                     {depositInfo2?.map((e,index)=>{
-                    return <p className="py-2">{e}</p>
+                    return <p className="py-2" key={index}>{e}</p>
                 })}
                 {Impotancede?.map((e,index)=>{
-                    return <p className='text-red-600 font-bold py-2'>{e}</p>
+                    return <p key={index} className='text-red-600 font-bold py-2'>{e}</p>
                 })}
             </div>
     
@@ -89,3 +89,5 @@ export const Userdeposit = forwardRef((pros: Props, ref: any) => {
     </div>
   );
 });
+
+Userdeposit.displayName = 'PopupForPlatforms';

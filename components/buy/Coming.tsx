@@ -8,7 +8,7 @@ export function Coming({}: Props) {
     <div className="flex flex-col gap-y-5 pt-10">
       {Comingsoon?.map((e, indx) => {
         return (
-          <div className="flex flex-col gap-y-5">
+          <div key={indx} className="flex flex-col gap-y-5">
             <div>
               <LazyLoadImage src={e.icon} />
             </div>

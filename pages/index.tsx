@@ -25,7 +25,7 @@ export default function Home() {
           <Boxlazyload />
         ) : (
           uniqueCategories.map((e, index) => {
-            return <Collectioncard data={allproduct} cetagory={e} />;
+            return <Collectioncard data={allproduct} key={index} cetagory={e} />;
           })
         )}
       </div>

@@ -105,13 +105,14 @@ export function Collectioninfo({ product }: Props) {
       {/* titile */}
       <div className="flex flex-rows justify-between relative pb-3">
         <h2 className="text-3xl font-extrabold">
-          <span className="text-[#1C84FE]">JED'S JOURNEY</span> COLLECTION
+          <span className="text-[#1C84FE]">{`JED'S JOURNEY`}</span> COLLECTION
         </h2>
 
         <div className="flex flex-row items-center gap-1">
           {collectionshare.map((e, index) => {
             return (
               <a
+              key={index}
                 href={`${e.tweetUrl + urlToShare}`}
                 target="_blank"
                 rel="noreferrer"
@@ -130,7 +131,7 @@ export function Collectioninfo({ product }: Props) {
         <p className="globaldarktext uppercase">name</p>
         <h2 className="text-3xl font-extrabold text-white">{name}</h2>
         <div className="w-fit">
-          <p className={`bg-[${secretRareColor}] px-[5px] text-black`}>
+          <p style={{ backgroundColor: secretRareColor }} className={` px-[5px] text-black`}>
             {rarity}
           </p>
         </div>

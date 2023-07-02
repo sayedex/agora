@@ -62,7 +62,7 @@ export function Nftboost({}: Props) {
       <div className="flex flex-wrap gap-3 justify-center ">
         {Bost.map((e, indx) => {
           return (
-            <div className="max-w-[190px] flex flex-col gap-y-2 border border-[#262C33] p-3">
+            <div key={indx} className="max-w-[190px] flex flex-col gap-y-2 border border-[#262C33] p-3">
               <div>
                 <LazyLoadImage className="m-auto" src={checkicon.src} />
               </div>

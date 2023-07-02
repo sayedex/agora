@@ -9,7 +9,9 @@ import React, {
 import { DualTitleImage } from "./Helper/Platfrombox";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 type Props = {};
-export const PopupforPlatfroms = forwardRef((pros: Props, ref: any) => {
+
+
+ const PopupforPlatfroms = forwardRef((pros: Props, ref: any) => {
   const [open, setOpen] = useState(false);
   useImperativeHandle(ref, () => {
     return {
@@ -63,3 +65,6 @@ export const PopupforPlatfroms = forwardRef((pros: Props, ref: any) => {
     </div>
   );
 });
+
+PopupforPlatfroms.displayName = 'PopupForPlatforms';
+export default PopupforPlatfroms;

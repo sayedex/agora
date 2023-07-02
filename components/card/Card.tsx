@@ -19,6 +19,7 @@ export function Card({ carddata }: Props) {
   const { rarity } = carddata;
   const rarityText = String(rarity).replace(/\s/g, ""); 
   const secretRareColor = RareColor[rarityText as keyof typeof RareColor];
+console.log(secretRareColor);
 
 
   return (
@@ -41,7 +42,7 @@ export function Card({ carddata }: Props) {
 
       {/* rarity */}
       <div className="px-2">
-        <p className={`bg-[${secretRareColor}] w-fit px-1`}>{carddata.rarity}</p>
+        <p style={{ backgroundColor: secretRareColor }} className={`w-fit px-1 `}>{carddata.rarity}</p>
       </div>
 
       {/* rarity */}

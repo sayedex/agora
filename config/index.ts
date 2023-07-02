@@ -38,7 +38,7 @@ export const depositInfo1 = [
 
 export const depositInfo2 = [
 "Supported networks: Ethereum, Polygon, Binance Smart Chain",
-"To deposit funds into your account send one of the accepted currencies to wallet address: 0x929Ba3345536503dBCE86187c3A050e635B62a1e"
+"To deposit funds into your account send one of the accepted currencies to wallet address: 0xfAd1EeBEBBAA84f24bb56122623d35eE0d7f3979"
 
 ]
 

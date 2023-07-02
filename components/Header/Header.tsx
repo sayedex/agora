@@ -12,7 +12,7 @@ import agora_logo_noshadow from "../../public/agora_logo_no-shadow.svg";
 
 //header list...
 import { HeaderList } from "../../config/Header/Headerlist";
-import { PopupforPlatfroms } from "../Popup/PopupforPlatfroms";
+import  PopupforPlatfroms  from "../Popup/PopupforPlatfroms";
 
 export function Header() {
   const [isMounted, setIsMounted] = useState(false);
@@ -163,6 +163,7 @@ export function Header() {
                   HeaderList.map((e, index) => {
                     return (
                       <Link
+                      key={index}
                         className="w-full"
                         href={e.link}
                         target={e.islink ? "" : "black"}

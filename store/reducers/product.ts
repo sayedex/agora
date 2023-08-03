@@ -5,10 +5,12 @@ export const getproductALL = createAsyncThunk(
     "product/getproductALL",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await productService.getproductforuser();
+            const response = await productService.getproductALL();
             return response.data;
 
         } catch (error: any) {
+            console.log(error);
+            
             return rejectWithValue(error.response.data);
         }
     }

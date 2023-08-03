@@ -63,7 +63,7 @@ export const ConnectButton = () => {
           {isConnected && <button  className=" rounded-xl text-sm 
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap  bg-gradient-to-r from-blue-500 to-pink-500" onClick={isActive?show:Signin} >
            <div className="bg-[#13181D] px-6 py-2 rounded-xl m-[2px]">
-           {issignIn || isActive && address ? address?.slice(1,5)+"..."+ address?.slice(-3) : "Login"}
+           { isActive && address ? address?.slice(1,5)+"..."+ address?.slice(-3) : "Login"}
            </div>
           </button>}
 

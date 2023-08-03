@@ -14,11 +14,13 @@ import userService from "../../services/userService";
 import { ToastContainer, toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { getuserMe } from "../../store/reducers/userlogin";
+import { getupdateinfo } from "../../store/reducers/updateproduct";
 type Props = {
   product: product;
+  id:any
 };
 
-export function Collectioninfo({ product }: Props) {
+export function Collectioninfo({ product ,id}: Props) {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppdispatch();
   const {address}  = useAccount();
@@ -47,9 +49,20 @@ export function Collectioninfo({ product }: Props) {
   const reloadUserbalance = () => {
     if (address) {
       dispatch(getuserMe({ wallet: address }));
+      UpdateState();
     }
   };
 
+const UpdateState = ()=>{
+  if (typeof(id)=="string") {
+
+    dispatch(
+      getupdateinfo({
+        productId: id,
+      })
+    );
+  }
+}
 
 
   //handleTokenSelection
@@ -188,7 +201,7 @@ export function Collectioninfo({ product }: Props) {
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap uppercase  bg_btn_gr"
         >
           <div className="bg-[#13181D] hover:bg-white hover:text-black px-6 py-2  m-[2px]">
-            {buyloading?"Buying":"Buy Now"}
+            {buyloading?"Buying..":"Buy Now"}
           </div>
         </button>
       </div>

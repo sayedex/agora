@@ -31,9 +31,7 @@ const productService = {
   getfeaturedproduct:()=>{
     return newRequest.get(`/product/getfeaturedproduct?limit=100`);
   },
-  getproductforuser:()=>{
-    return newRequest.get("/product/getproductforuser");
-  }
+
 };
 
 

@@ -30,7 +30,7 @@ function Buynft({}: Props) {
       {
         product?  <div className="flex flex-col md:flex-row gap-10 relative mb-6">
         <CollectionImage imageUrl={product.imgUrl} />
-        <Collectioninfo product={product} />
+        <Collectioninfo product={product} id={id}/>
       </div>:<LoadSpinner/>
       } 
       </div>

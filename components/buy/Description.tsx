@@ -10,12 +10,7 @@ export function Description({description}: Props) {
       <div>
         <p className="uppercase globaldarktext py-3">Description</p>
         <p>
-          She is striking, beautiful, and brilliant with a unique charm. Khali,
-          is nothing short of intoxicating - but proceed with caution - for her
-          claws dig deep. She has dedicated her life to the pursuit of knowledge
-          and history. Khali spend most of her time searching for the greatest
-          treasures of the galaxy while flaunting her deadly charm to an
-          unsuspecting foe no collection is safe.
+       {description}
         </p>
       </div>
 

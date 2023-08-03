@@ -32,7 +32,7 @@ export function Attributes({}: Props) {
         </table>
       </div>
 
-      <div className="flex flex-row items-center gap-3 m-auto">
+      <div className="flex flex-wrap items-center gap-3 m-auto">
         <p>Powered by</p>
         <LazyLoadImage className="max-w-[100px]" src={chainlink.src} />
         <p>

@@ -11,7 +11,7 @@ type Props = {
 export function Featured({ data, cetagory }: Props) {
   // here we will filter as parms...
   return (
-    <div className="max-w-7xl m-auto px-3 md:px-14">
+    <div className="max-w-7xl m-auto p-4 md:p-5">
       <div className="rainbowborder h-[8px] mb-6"></div>
       <h1 className="text-[#1C84FE] text-4xl font-extrabold">
         FEATURED ARTIST <span className="text-white">{cetagory}</span>

@@ -12,14 +12,14 @@ export function Collectioncard({ data, cetagory }: Props) {
   const items = data.filter((e)=>e.series === cetagory);
 
   return (
-    <div className="max-w-7xl m-auto px-3 md:px-14">
+    <div className="max-w-7xl m-auto p-4 md:p-5">
       <div className="rainbowborder h-[8px] mb-6"></div>
       <h1 className="text-[#1C84FE] text-4xl font-extrabold">
         GENESIS MINT <span className="text-white">{cetagory}</span>
       </h1>
 
       <div className="flex justify-start flex-wrap gap-5 pt-10 pb-[100px]">
-        {items.map((el: product,indx) => {
+        {items.filter((e)=>!e.featured).map((el: product,indx) => {
           return <Card carddata={el} key={indx} />;
         })}
       </div>

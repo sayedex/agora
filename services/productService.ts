@@ -17,7 +17,7 @@ const productService = {
     return newRequest.delete(`/product/removeproduct/${productId}`);
   },
   getallproduct:(page:number)=>{
-    return newRequest.get(`/product/allproducts?page=${page}&limit=10`);
+    return newRequest.get(`/product/allproducts?page=${page}&limit=11`);
   },
   getproductALL: () => {
     return newRequest.get(`/product/allproducts`);
@@ -31,6 +31,9 @@ const productService = {
   getfeaturedproduct:()=>{
     return newRequest.get(`/product/getfeaturedproduct?limit=100`);
   },
+  getproductforuser:()=>{
+    return newRequest.get("/product/getproductforuser");
+  }
 };
 
 

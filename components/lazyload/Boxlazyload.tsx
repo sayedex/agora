@@ -2,10 +2,10 @@ const arr = Array.from({ length: 3 });
 
 export const Boxlazyload = () => {
   return (
-    <div className="max-w-7xl m-auto">
+    <div className="max-w-7xl m-auto p-1">
       <div className="rainbowborder h-[8px] mb-6"></div>
       <h1 className="text-[#1C84FE] text-4xl font-extrabold">GENESIS MINT</h1>
-      <div className="flex flex-wrap max-w-7xl m-auto justify-between gap-5 py-14">
+      <div className="flex flex-wrap p-5 justify-center max-w-7xl m-auto  gap-5 py-14">
         {arr.map((item, index) => (
           <div key={index} className="">
             <div

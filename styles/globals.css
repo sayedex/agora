@@ -78,6 +78,12 @@ body {
   .text_transparent_grcolor{
     @apply bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent
   }
+  .nav_link{
+    @apply relative flex items-center gap-2 cursor-pointer rounded   dark:hover:bg-slate-800 p-4 transition-all
+  }
+  .btn_upperlayer{
+    @apply bg-[#13181D] px-6 py-2  m-[2px] text_shadow hover:bg-white hover:text-black
+  }
    
 }
 
@@ -90,4 +96,51 @@ html{
 }
 .rainbowborder {
   background: linear-gradient(270.04deg, #1D84FF -0.51%, #BC4BC7 86.95%)
+}
+element.style {
+  background: black !important;
+}
+.rainbow-border {
+  background: linear-gradient(270.04deg, #1D84FF -0.51%, #BC4BC7 86.95%);
+  padding-top: 4px;
+}
+#dropdown{
+  content: "";
+    width: 1em;
+    height: 1em;
+    background: url(../public/icon/triangle.svg);
+    display: inline-block;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    right: -8%;
+    top: 39%;
+
+}
+
+
+  /* overrides scroll bar */
+  #scrollbar::-webkit-scrollbar {
+    width: 2px;
+}
+
+#scrollbar::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+#scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.text_shadow{
+  text-shadow: 0px 0px 17.7152px rgba(255, 255, 255, 0.5);
+}
+.pricecurrency-wrapper {
+  background: linear-gradient(109.55deg, #21B5FF 0%, #FF00B2 100%);
+
+}
+
+.boost-stat {
+  border-bottom: 2rem solid #262C33;
+  border-left: 2rem solid transparent;
+  border-right: 2rem solid transparent;
 }

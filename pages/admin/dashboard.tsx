@@ -25,9 +25,9 @@ function Dashboard({}: Props) {
       <h1 className="uppercase font-bold p-10">dashboard</h1>
 
       <div className="flex flex-wrap justify-center gap-5">
-      <Box title="User" count={data?.user} />
-        <Box title="Product" count={data?.product} />
-        <Box title="Order" count={data?.order} />
+      <Box title="User" count={data?.user} link="/admin/alluser" />
+        <Box title="Product" count={data?.product} link="/admin/allproduct" />
+        <Box title="Order" count={data?.order} link="/admin/allorder" />
     
       </div>
     </div>

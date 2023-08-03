@@ -16,9 +16,13 @@ function Yournft({}: Props) {
 
   useEffect(() => {
     if (address) {
+      // get...
       dispatch(getNFT());
     }
-  }, [address]);
+  }, [address,isActive]);
+
+  console.log(isActive);
+  
 
   return (
     <div className="min-h-screen  max-w-7xl m-auto py-10 px-3">
@@ -30,12 +34,16 @@ function Yournft({}: Props) {
 
       {isActive ? (
         <div className="flex flex-col md:flex-row items-centerm-auto">
-          {nftloading == "pending" ? (
+          {nftloading == "pending" || nftloading=='idle' ? (
             <LoadSpinner />
           ) : (
-            nftBalance?.map((e, index) => {
-              return <Nft  key={index} nft={e}/>;
-            })
+            <div>
+              {nftBalance!=null && nftBalance.length == 0
+                ? "You don't have any nft!"
+                : nftBalance?.map((e, index) => {
+                    return <Nft key={index} nft={e} />;
+                  })}
+            </div>
           )}
         </div>
       ) : (

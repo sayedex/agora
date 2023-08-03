@@ -4,33 +4,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 //check
 import checkicon from "../../public/icon/check.svg";
 import SILVERVOLT_LOGO from "../../public/icon/SILVERVOLT_LOGO.webp";
-const Bost = [
-  {
-    trait_type: "Silvervolt Referral Boost",
-    value: 5,
-    max_value: 6,
-  },
-  {
-    trait_type: "Silvervolt Lottery 1st Ticket Cost",
-    value: 1,
-  },
-  {
-    trait_type: "Silvervolt Lottery 2nd Ticket Cost",
-    value: 5,
-  },
-  {
-    trait_type: "Silvervolt Lottery 1st Ticket Cost",
-    value: 1,
-  },
-  {
-    trait_type: "Silvervolt Lottery 2nd Ticket Cost",
-    value: 5,
-  },
-  {
-    trait_type: "Silvervolt Lottery 2nd Ticket Cost",
-    value: 5,
-  },
-];
+
+import { Bost } from "../../config";
 
 type Props = {};
 
@@ -53,30 +28,38 @@ export function Nftboost({}: Props) {
             target="_blank"
             rel="noreferrer"
           >
-            {" "}
+          
             www.silvervolt.app
           </a>
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-3 justify-center ">
+      <div className="flex flex-wrap gap-5 justify-start ">
         {Bost.map((e, indx) => {
           return (
-            <div key={indx} className="max-w-[190px] flex flex-col gap-y-2 border border-[#262C33] p-3">
+            <div
+              key={indx}
+              className="max-w-[250px] flex flex-col gap-y-2 border border-[#262C33]   pt-3 relative"
+            >
               <div>
                 <LazyLoadImage className="m-auto" src={checkicon.src} />
               </div>
-              <div className="m-auto">
+              <div className="m-auto ">
                 <p className="text-center text-2xl uppercase  font-bold">
-                  bid boost
+                  {e.trait_type}
                 </p>
               </div>
               <div>
                 <p className="text-center globaldarktext text-sm">
-                  Gives you additional weekly auction bids. Up to 4 / week for a
-                  Ultra rare.
+                  {e.traits_info}
                 </p>
               </div>
+
+              {e.type && (
+                <div className="boost-stat flex justify-center items-center relative   ">
+                  <p className='absolute mt-[2rem]' >{e.type}</p>
+                </div>
+              )}
             </div>
           );
         })}

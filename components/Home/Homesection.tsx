@@ -3,7 +3,12 @@ import Bg from "../../public/Home/genesis_name_bg.png";
 import agoramarketplace from "../../public/Home/agoramarketplace.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ConnectButton } from "../Header/connect";
+import { useAppSelector,useAppdispatch} from "../../hooks/redux";
+import {setBuypopup} from "../../store/walletSlice"
+
 export function Homesection() {
+  const dispatch = useAppdispatch();
+  
   const Bgstyle = {
     backgroundImage: "url('Home/genesis_name_bg.png')",
   };
@@ -37,18 +42,18 @@ export function Homesection() {
         </h2>
 
         <div className="flex extrasmall:flex-col p-10 flex-row gap-5 m-auto justify-center py-5">
-          <button
+          <button onClick={()=>dispatch(setBuypopup(true))}
             className=" text-sm 
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap  bg_btn_gr"
           >
-            <div className="bg-[#13181D] px-6 py-2  m-[2px]">How to buy</div>
+            <div className="btn_upperlayer ">How to buy</div>
           </button>
 
           <button
             className=" text-sm 
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap bg_btn_gr"
           >
-            <div className="bg-[#13181D] px-6 py-2  m-[2px]">Learn More</div>
+            <div className="btn_upperlayer">Learn More</div>
           </button>
 
           

@@ -12,6 +12,8 @@ import { RareColor } from "../../config";
 import { handleNotification } from "../../utils/Notification";
 import userService from "../../services/userService";
 import { ToastContainer, toast } from "react-toastify";
+import { useAccount } from "wagmi";
+import { getuserMe } from "../../store/reducers/userlogin";
 type Props = {
   product: product;
 };
@@ -19,6 +21,7 @@ type Props = {
 export function Collectioninfo({ product }: Props) {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppdispatch();
+  const {address}  = useAccount();
   const [buyloading, setbuyloading] = useState(false);
   const {
     description,
@@ -40,6 +43,14 @@ export function Collectioninfo({ product }: Props) {
     _id: "",
     price: 0,
   });
+
+  const reloadUserbalance = () => {
+    if (address) {
+      dispatch(getuserMe({ wallet: address }));
+    }
+  };
+
+
 
   //handleTokenSelection
   const handleTokenSelection = (event: any) => {
@@ -65,7 +76,7 @@ export function Collectioninfo({ product }: Props) {
   }, [paymentTokens]);
 
   const handlebuy = () => {
-    if (!user ) return;
+    if (!user) return;
     const userTokenBalance = user.balances.find(
       (balance: any) => balance.token._id.toString() === preselectedToken._id
     );
@@ -80,21 +91,27 @@ export function Collectioninfo({ product }: Props) {
         paymentid: preselectedToken._id,
         amount: 1,
       };
-      const response = userService.Buynft(data);
-      handleNotification(
-        dispatch,
-        response,
-        "Buy done",
-        "buying...",
-        "something went wrong"
-      );
-      setbuyloading(false);
+      const response = userService
+        .Buynft(data)
+        .then((e) => {
+          setbuyloading(false);
+          reloadUserbalance();
+          console.log("done");
+        })
+        .catch((e) => {
+          setbuyloading(false);
+          console.log(e);
+        });
     } else {
       toast.warning(`Insufficient balance to buy the product`, {
         position: "bottom-right",
       });
     }
   };
+
+  useEffect(() => {
+    console.log(buyloading, "asas");
+  }, [buyloading]);
 
   const urlToShare = window.location.href;
   const rarityText = String(rarity).replace(/\s/g, "");
@@ -112,7 +129,7 @@ export function Collectioninfo({ product }: Props) {
           {collectionshare.map((e, index) => {
             return (
               <a
-              key={index}
+                key={index}
                 href={`${e.tweetUrl + urlToShare}`}
                 target="_blank"
                 rel="noreferrer"
@@ -129,9 +146,12 @@ export function Collectioninfo({ product }: Props) {
 
       <div className="pt-5 flex flex-col gap-y-2">
         <p className="globaldarktext uppercase">name</p>
-        <h2 className="text-3xl font-extrabold text-white">{name}</h2>
+        <h2 className="text-4xl font-extrabold text-white">{name}</h2>
         <div className="w-fit">
-          <p style={{ backgroundColor: secretRareColor }} className={` px-[5px] text-black`}>
+          <p
+            style={{ backgroundColor: secretRareColor }}
+            className={` px-[5px] text-black`}
+          >
             {rarity}
           </p>
         </div>
@@ -141,17 +161,19 @@ export function Collectioninfo({ product }: Props) {
 
       {/* token Price option */}
       <div className="flex flex-row items-center gap-3">
-        <select
-          className="bg-[#13181D] px-1 py-3 border rounded-lg"
-          value={preselectedToken.name}
-          onChange={handleTokenSelection}
-        >
-          {paymentTokens?.map((token: any, indx) => (
-            <option className="py-3" key={indx} value={token.id}>
-              {token.symbol}
-            </option>
-          ))}
-        </select>
+        <div className="pricecurrency-wrapper">
+          <select
+            className="bg-[#2e2e2e] px-1 py-3 border-none pb-[1px] text-lg mb-[3px] uppercase "
+            value={preselectedToken.name}
+            onChange={handleTokenSelection}
+          >
+            {paymentTokens?.map((token: any, indx) => (
+              <option className="py-3" key={indx} value={token.id}>
+                {token.symbol}
+              </option>
+            ))}
+          </select>
+        </div>
         <h3 className="text-2xl font-extrabold">{preselectedToken.price}</h3>
       </div>
       {/* token Price option */}
@@ -166,7 +188,7 @@ export function Collectioninfo({ product }: Props) {
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap uppercase  bg_btn_gr"
         >
           <div className="bg-[#13181D] hover:bg-white hover:text-black px-6 py-2  m-[2px]">
-            Buy now
+            {buyloading?"Buying":"Buy Now"}
           </div>
         </button>
       </div>

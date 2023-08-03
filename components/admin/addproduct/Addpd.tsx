@@ -13,27 +13,31 @@ type Props = {
   mode: "add" | "update";
   id?: string;
 };
+interface Attribute {
+  trait_type: string;
+  value: string;
+}
 
-interface product{
+interface product {
   name: string | undefined;
-  productid: string  | undefined;
-  description: string  | undefined;
-  imgUrl: string  | undefined;
-  maxmint: string  | undefined;
-  Type: string  | undefined;
-  rarity: string  | undefined;
-  series: string  | undefined;
-  character: string  | undefined;
-  mint: string  | undefined;
-  value:string  | undefined,
-  featured:boolean
+  productid: string | undefined;
+  description: string | undefined;
+  imgUrl: string | undefined;
+  maxmint: string | undefined;
+  Type: string | undefined;
+  rarity: string | undefined;
+  series: string | undefined;
+  character: string | undefined;
+  mint: string | undefined;
+  value: string | undefined;
+  featured: boolean;
 }
 
 function Addpd({ mode, id }: Props) {
   const router = useRouter();
   const [inputs, setInputs] = useState<product>({
     name: "",
-    productid:"" ,
+    productid: "",
     description: "",
     imgUrl: "",
     maxmint: "",
@@ -43,18 +47,37 @@ function Addpd({ mode, id }: Props) {
     character: "",
     mint: "",
     value: "",
-    featured:false
-  });
-  const dispath = useAppdispatch();
-  const { loading, product,addproductLoad } = useAppSelector((state) => state.product);
-  const { description,_id,name,productid,imgUrl,rarity:apiratity,series,maxmint,Type,mint,character,USD}  = product || {};
+    featured: false,
 
-  useEffect(() => {
-     if (addproductLoad == "done") {
-       router.push("/admin/allproduct");
-      }
- }, [addproductLoad]);
- 
+  });
+  const [traitType, setTraitType] = useState("");
+  const [triatvalue, settriatValue] = useState("");
+
+  const dispath = useAppdispatch();
+  const { loading, product, addproductLoad } = useAppSelector(
+    (state) => state.product
+  );
+  const {
+    description,
+    _id,
+    name,
+    productid,
+    imgUrl,
+    rarity: apiratity,
+    series,
+    maxmint,
+    Type,
+    mint,
+    character,
+    USD,
+    featured
+  } = product || {};
+
+  // useEffect(() => {
+  //   if (addproductLoad == "done") {
+  //     router.push("/admin/allproduct");
+  //   }
+  // }, [addproductLoad]);
 
   useEffect(() => {
     if (mode == "update" && id) {
@@ -81,11 +104,13 @@ function Addpd({ mode, id }: Props) {
         series: series,
         character: character,
         mint: mint,
-        value:USD?.toString()
-      
+        value: USD?.toString(),
+        featured:featured?featured:false
       });
     }
   }, [product]);
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -102,10 +127,10 @@ function Addpd({ mode, id }: Props) {
     }));
   };
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     if (mode === "add") {
-      await  dispath(addProduct({ productData: inputs }));
-     // router.push('/admin/allproduct');
+      await dispath(addProduct({ productData: inputs }));
+       router.push('/admin/allproduct');
     } else if (mode === "update" && id) {
       await dispath(
         updateProduct({
@@ -113,19 +138,18 @@ function Addpd({ mode, id }: Props) {
           productData: inputs,
         })
       );
-  
     }
   };
 
   const handleCheckboxChange = () => {
     setInputs({
       ...inputs,
-      featured:!inputs.featured 
+      featured: !inputs.featured,
     });
   };
 
   return (
-    <div className="max-w-[650px] bg-[#ffffff] m-auto rounded-lg mt-10 p-5">
+    <div className="max-w-[750px] bg-[#ffffff] m-auto rounded-lg mt-10 p-5">
       <h1 className="text-2xl text-center text-black py-3">{mode} a product</h1>
       <div className="px-4 flex flex-col gap-3">
         <Inputhelper
@@ -182,16 +206,16 @@ function Addpd({ mode, id }: Props) {
           value={inputs.maxmint}
           onChange={handleInputChange}
         />
-         <label className="text-black flex flex-row gap-3">
-        <input
-          type="checkbox"
-          checked={inputs.featured}
-          onChange={handleCheckboxChange}
-        />
-        Show featured products
-      </label>
+        <label className="text-black flex flex-row gap-3">
+          <input
+            type="checkbox"
+            checked={inputs.featured}
+            onChange={handleCheckboxChange}
+          />
+          Show featured products
+        </label>
         <div>
-          <label className="capitalize">rarity</label>
+          <label className="capitalize text-black">rarity</label>
           <select
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             onChange={(e) => UpdateSellect("rarity", e.target.value)}
@@ -208,7 +232,7 @@ function Addpd({ mode, id }: Props) {
         </div>
 
         <div>
-          <label className="capitalize">series</label>
+          <label className="capitalize text-black">series</label>
           <select
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             onChange={(e) => UpdateSellect("series", e.target.value)}

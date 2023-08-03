@@ -34,6 +34,7 @@ export const getNFT = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await userService.getNFT();
+            console.log(response.data);
             return response.data;
 
         } catch (error: any) {

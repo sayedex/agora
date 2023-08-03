@@ -21,6 +21,7 @@ interface userState {
   user:{
     balances:balance[],
     wallet:string,
+    role:string
   } | null
 
   nftBalance:[]

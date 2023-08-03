@@ -23,7 +23,8 @@ export interface product{
   mint: string;
   value:number
   USD:number,
-  paymentTokens?:[{
+  featured:boolean
+    paymentTokens?:[{
     name:string,
     id:string,
     price:number

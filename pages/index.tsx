@@ -12,7 +12,7 @@ import { Boxlazyload } from "../components/lazyload/Boxlazyload";
 
 export default function Home() {
   const { loading, allproduct,productfeatured } = useAppSelector((state) => state.product);
-  const categories = allproduct.map((e) => e.series);
+  const categories = allproduct.filter((e)=>!e.featured).map((e) => e.series);
   const uniqueCategories = Array.from(new Set(categories));
 
 

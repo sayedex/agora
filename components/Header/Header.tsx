@@ -6,6 +6,9 @@ import logo from "../../public/logo.webp";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useAppSelector, useAppdispatch } from "../../hooks/redux";
+import { setPlatformpopip } from "../../store/walletSlice";
+
 //logo import
 import jedstar_logo_only from "../../public/jedstar_logo_only.svg";
 import agora_logo_noshadow from "../../public/agora_logo_no-shadow.svg";
@@ -15,11 +18,8 @@ import { HeaderList } from "../../config/Header/Headerlist";
 import  PopupforPlatfroms  from "../Popup/PopupforPlatfroms";
 
 export function Header() {
+    const dispatch = useAppdispatch()
   const [isMounted, setIsMounted] = useState(false);
-  const PlatformsModel = useRef<{
-    openPopup: () => void;
-    closePopup: () => void;
-  }>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -37,7 +37,7 @@ export function Header() {
 
   return (
     <Popover className="bg-[#13181D] z-50 sticky top-[0px] w-full ">
-      <PopupforPlatfroms ref={PlatformsModel} />
+   
       <div
         className="flex items-center px-2  justify-between max-w-7xl m-auto
     transform  backdrop-blur-none
@@ -76,10 +76,10 @@ export function Header() {
           <ul className="flex gap-2 font-semibold whitespace-nowrap">
             {HeaderList.map((e, index) => {
               return (
-                <li onClick={openPopup} key={index}>
+                <li key={index}>
                   {e.route ? (
                     <Link href={e.link} onClick={() => {}}>
-                      <p className="relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark  dark:hover:bg-slate-800 p-4 transition-all">
+                      <p className="nav_link">
                         {e.name}
                       </p>
                     </Link>
@@ -90,21 +90,24 @@ export function Header() {
                       target="blank"
                       rel="noreferrer"
                     >
-                      <p className="relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark  dark:hover:bg-slate-800 p-4 transition-all">
+                      <p className="nav_link">
                         {e.name}
                       </p>
                     </Link>
                   ) : (
                     <a
+                    className='relative'
                       onClick={() => {
                         if (!e.islink) {
-                          PlatformsModel.current?.openPopup();
+                          dispatch(setPlatformpopip(true))
+                          // PlatformsModel.current?.openPopup();
                         }
                       }}
                     >
-                      <p className="relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark  dark:hover:bg-slate-800 p-4 transition-all">
+                      <p className="nav_link">
                         {e.name}
                       </p>
+                      <div id="dropdown"></div>
                     </a>
                   )}
 
@@ -159,9 +162,54 @@ export function Header() {
           >
             <Popover.Panel className="absolute z-20 inset-0 top-[70px] bg-black dark:bg-primary-dark 	">
               <div className="flex flex-col items-start bg-black w-full  drounded-lg ">
-                {HeaderList &&
+              {HeaderList.map((e, index) => {
+              return (
+                <div key={index} className="w-full hover:bg-slate-800">
+                  {e.route ? (
+                    <Link className=" w-full" href={e.link} onClick={() => {}}>
+                      <p className="nav_link">
+                        {e.name}
+                      </p>
+                    </Link>
+                  ) : e.islink ? (
+                    <Link
+                    className="hover:bg-slate-800 w-full" 
+                      href={e.link}
+                      onClick={() => {}}
+                      target="blank"
+                      rel="noreferrer"
+                    >
+                      <p className="nav_link">
+                        {e.name}
+                      </p>
+                    </Link>
+                  ) : (
+                    <a
+                    
+                    className=" relative hover:bg-slate-800 w-full" 
+                      onClick={() => {
+                        if (!e.islink) {
+                          dispatch(setPlatformpopip(true))
+                          // PlatformsModel.current?.openPopup();
+                        }
+                      }}
+                    >
+                      <p className="nav_link">
+                        {e.name}
+                      </p>
+                      <div id="dropdown"></div>
+                    </a>
+                  )}
+
+                  {}
+                </div>
+              );
+            })}
+                {/* {HeaderList &&
                   HeaderList.map((e, index) => {
                     return (
+
+                      
                       <Link
                       key={index}
                         className="w-full"
@@ -173,8 +221,11 @@ export function Header() {
                           {e.name}
                         </p>
                       </Link>
+
+
+
                     );
-                  })}
+                  })} */}
                           <div className="py-4 px-4">
                           <ConnectButton />
                           </div>

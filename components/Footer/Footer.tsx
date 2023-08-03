@@ -2,16 +2,13 @@ import React, { useState, useRef } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FotterItem } from "../../config/Fotter/Config";
 import PopupforPlatfroms from "../Popup/PopupforPlatfroms";
+import { setPlatformpopip } from "../../store/walletSlice";
+import { useAppdispatch ,useAppSelector} from "../../hooks/redux";
 function Footer() {
-  const PlatformsModel = useRef<{
-    openPopup: () => void;
-    closePopup: () => void;
-  }>(null);
-
+const dispatch = useAppdispatch();
   return (
     <>
-    <PopupforPlatfroms ref={PlatformsModel}/>
-      <div className="flex flex-col md:flex-row max-w-7xl m-auto justify-between text-white items-center py-5 gap-5">
+      <div className="flex flex-col md:flex-row max-w-7xl m-auto justify-between text-white items-center px-3 py-10 gap-5">
         {/* fotter link */}
         <div className="flex flex-row gap-5">
           <a href="" className="bg_btn_gr pb-[5px]">
@@ -20,7 +17,7 @@ function Footer() {
 
           <div
             onClick={() => {
-              PlatformsModel.current?.openPopup();
+              dispatch(setPlatformpopip(true))
             }}
             className="bg_btn_gr pb-[5px] cursor-pointer"
           >
@@ -37,7 +34,7 @@ function Footer() {
         {/* copyright  */}
 
         {/* social icon */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {FotterItem?.map((e,indx) => {
             return (
               <a href="" key={indx}>

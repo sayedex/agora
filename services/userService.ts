@@ -15,6 +15,15 @@ const userService = {
   },
   Buynft:(data:any)=>{
     return newRequest.post('/product/Buynft',data);
+  },
+  getAlluser:(page:number)=>{
+    return newRequest.get(`/user/allusers`);
+  },
+  getsingleuser:(wallet:string)=>{
+    return newRequest.get(`/user/singleuser/${wallet}`);
+  },
+  addadmin:(data:any) =>{
+    return newRequest.post(`/user/updaterole`,data);
   }
 };
 

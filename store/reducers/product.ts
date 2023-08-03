@@ -5,7 +5,7 @@ export const getproductALL = createAsyncThunk(
     "product/getproductALL",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await productService.getproductALL();
+            const response = await productService.getproductforuser();
             return response.data;
 
         } catch (error: any) {

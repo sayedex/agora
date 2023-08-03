@@ -17,32 +17,37 @@ export function Card({ carddata }: Props) {
   };
 
   const { rarity } = carddata;
-  const rarityText = String(rarity).replace(/\s/g, ""); 
+  const rarityText = String(rarity).replace(/\s/g, "");
   const secretRareColor = RareColor[rarityText as keyof typeof RareColor];
-console.log(secretRareColor);
-
 
   return (
-    <div className="md:max-w-[253px] bg-gradient-to-b from-gray-700 to-transparent ">
+    <div className="md:max-w-[290px]  bg-gradient-to-b from-gray-700 to-transparent ">
       {/* image  */}
-      <div className="p-1">
-        <LazyLoadImage  placeholderSrc={LayerIMG.src} src={carddata.imgUrl || dummyiimage.src} alt="image" />
+      <div className="p-2">
+        <LazyLoadImage
+          placeholderSrc={LayerIMG.src}
+          src={carddata.imgUrl || dummyiimage.src}
+          alt="image"
+        />
       </div>
       {/* image  */}
 
       {/* name and dec */}
       <div className="px-2">
         <p className="text-lg text-[#827A8E] font-medium uppercase">Name</p>
-        <p className="text-lg text-white font-semibold">
-         {carddata.name}
-        </p>
+        <p className="text-lg text-white font-semibold">{carddata.name}</p>
       </div>
 
       {/* name and dec */}
 
       {/* rarity */}
       <div className="px-2">
-        <p style={{ backgroundColor: secretRareColor }} className={`w-fit px-1 `}>{carddata.rarity}</p>
+        <p
+          style={{ backgroundColor: secretRareColor }}
+          className={`w-fit px-1 `}
+        >
+          {carddata.rarity}
+        </p>
       </div>
 
       {/* rarity */}
@@ -56,16 +61,18 @@ console.log(secretRareColor);
       {/* price */}
 
       {/* minted */}
-      <p className="text-center text-[#827A8E] py-4">{carddata.minted} MINTED</p>
+      <p className="text-center text-[#827A8E] py-4">
+        {carddata.minted} MINTED
+      </p>
       {/* minted */}
 
       {/* buy button */}
       <div className="relative">
         <button
           onClick={() => RedirectBuypage()}
-          className="w-full bg_btn_gr  p-[2px] relative"
+          className="w-full bg_btn_gr  p-[2px] relative hover:bg-none"
         >
-          <div className="bg-[#13181D] hover:bg-white hover:text-black w-full text-white text-sm py-1  ">
+          <div className="btn_upperlayer ">
             Buy now
           </div>
         </button>

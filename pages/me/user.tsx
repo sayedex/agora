@@ -1,36 +1,31 @@
 import React, { useRef } from "react";
 import { Ubutton } from "../../components/user/Ubutton";
-import { Userdeposit } from "../../components/Popup/Userdeposit";
 import { BalanceToken } from "../../components/user/Balance";
 import { useAppSelector, useAppdispatch } from "../../hooks/redux";
 import { getuserlogin, getuserMe } from "../../store/reducers/userlogin";
 import NotConneted from "../../components/user/NotConneted";
 import { useAccount } from "wagmi";
+import { setDepositPopup } from "../../store/walletSlice";
+
 type Props = {};
 
 function User({}: Props) {
   const dispatch = useAppdispatch();
-  const {address} = useAccount()
-  const { user, isActive,issignIn } = useAppSelector((state) => state.user);
-  const userDepositmodel = useRef<{
-    openPopup: () => void;
-    closePopup: () => void;
-  }>(null);
-
-  const ShowDepositmodel = () => {
-    userDepositmodel.current?.openPopup();
-  };
+  const { address } = useAccount();
+  const { user, isActive, issignIn } = useAppSelector((state) => state.user);
 
   const reloadUserbalance = () => {
-    if(address){
+    if (address) {
       dispatch(getuserMe({ wallet: address }));
     }
-   
+  };
+
+  const opendepositpopup = () => {
+    dispatch(setDepositPopup(true));
   };
 
   return (
     <div className="h-screen w-full max-w-7xl m-auto ">
-      <Userdeposit ref={userDepositmodel} />
       {/* header */}
       <div className="relative">
         <div className="flex flex-wrap items-center w-full justify-between p-5 gap-3 ">
@@ -42,7 +37,7 @@ function User({}: Props) {
 
           <div className="flex flex-wrap items-center gap-3">
             <Ubutton name="Refresh Balances" onClick={reloadUserbalance} />
-            <Ubutton name="Deposit Credit" onClick={ShowDepositmodel} />
+            <Ubutton name="Deposit Credit" onClick={opendepositpopup} />
           </div>
         </div>
 
@@ -51,14 +46,17 @@ function User({}: Props) {
       {/* header */}
 
       {/* balance */}
-   {isActive && address?   <div>
-        {user?.balances.map((e, index) => {
-      
-          return (
-            <BalanceToken key={index} name={e.token?.name} value={e.amount} />
-          );
-        })}
-      </div>:<NotConneted info="Connet your wallet to view all balance"/>}
+      {isActive && address ? (
+        <div>
+          {user?.balances.map((e, index) => {
+            return (
+              <BalanceToken key={index} name={e.token?.name} value={e.amount} />
+            );
+          })}
+        </div>
+      ) : (
+        <NotConneted info="Connect your wallet to view all balance" />
+      )}
       {/* balance */}
 
       {/* Deposit info */}

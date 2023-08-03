@@ -30,3 +30,12 @@ export const orderManu = [
     
     },
 ]
+
+export const userManu = [
+    {
+        name:"All User",
+        // icon:CgProfile,
+        link:"/admin/alluser"
+    
+    },
+]

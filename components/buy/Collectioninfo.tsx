@@ -110,6 +110,9 @@ const UpdateState = ()=>{
           setbuyloading(false);
           reloadUserbalance();
           console.log("done");
+          toast.success(`NFT brought successfully`, {
+            position: "bottom-right",
+          });
         })
         .catch((e) => {
           setbuyloading(false);

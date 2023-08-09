@@ -4,9 +4,9 @@ import axios from "axios";
 
 const apiUrl = process.env.NODE_ENV === 'production' ? process.env.API_URL : 'http://localhost:5000/api';
 
-
+//https://api.cipherem.xyz/api
 const newRequest = axios.create({
-  baseURL:"https://api.cipherem.xyz/api" ,
+  baseURL:apiUrl ,
   withCredentials: true,
 });
 

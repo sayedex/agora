@@ -28,7 +28,7 @@ export const BalanceToken = ({ name, value }: Props) => {
         </div>
 
        
-        <div>{value}</div>
+        <div>{Number(value).toFixed(0)}</div>
       </div>
     </div>
   );

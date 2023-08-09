@@ -5,6 +5,7 @@ import { setwallet } from "../../store/userSlice";
 import { ethers } from "ethers";
 
 import { getuserlogin } from "../../store/reducers/userlogin";
+import { SiweMessage } from 'siwe'
 
 
 export const ConnectButton = () => {
@@ -47,6 +48,11 @@ export const ConnectButton = () => {
     
   }
 
+
+
+
+
+
   
   return (
     <ConnectKitButton.Custom>
@@ -66,6 +72,7 @@ export const ConnectButton = () => {
            { isActive && address ? address?.slice(1,5)+"..."+ address?.slice(-3) : "Login"}
            </div>
           </button>}
+
 
         </div>
           

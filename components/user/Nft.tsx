@@ -1,7 +1,8 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LayerIMG from "../../public/IMG/layer.png";
-import Test from "../../public/nft/0.jpg"
+import Test from "../../public/nft/0.jpg";
+import { RareColor } from "../../config";
 interface nft{
   metadata:any,
   name:string,
@@ -15,29 +16,44 @@ type Props = {
 
 export function Nft({nft}: Props) {
   const {name,token_id} = nft;
+  const rarity  = "Common";
+  const rarityText = String(rarity).replace(/\s/g, "");
+  const secretRareColor = RareColor[rarityText as keyof typeof RareColor];
 
   return (
-    <div className="bg-white max-w-[400px]	relative m-5 p-2 rounded-lg  shadow-md bg-blend-multiply border hover:opacity-75">
+    <div className="md:max-w-[290px] bg-gradient-to-b from-gray-700 to-transparent pb-7  ">
       {/* nft  */}
 
 
       {/* img */}
       <LazyLoadImage
         placeholderSrc={LayerIMG.src}
-        className="rounded-lg border w-full"
+        className="md:max-w-[290px] bg-gradient-to-b from-gray-700 to-transparent p-2 "
         src={Test.src}
 
       />
       {/* img */}
 
-      {/* name  */}
-      <div className="pb-1">
-        <p className="text-neutral-800	 font-medium font-sans	text-xs	">#{token_id}</p>
-        <h1 className="text-neutral-800		font-bold font-sans	text-lg	">{name}</h1>
+   {/* name and dec */}
+   <div className="px-2">
+        <p className="text-lg text-[#827A8E] font-medium uppercase">Name</p>
+        <p className="text-lg text-white font-semibold">{name}</p>
       </div>
+
       {/* name  */}
 
-      {/* listing price */}
+    
+      {/* rarity */}
+      <div className="px-2">
+        <p
+          style={{ backgroundColor: secretRareColor}}
+          className={`w-fit px-1 `}
+        >
+          {"Common"}
+        </p>
+      </div>
+
+      {/* rarity */}
 
       {/* <h2 className='text-base	font-bold		'>{'50'} ETH</h2> */}
 

@@ -16,6 +16,9 @@ const userService = {
   Buynft:(data:any)=>{
     return newRequest.post('/product/Buynft',data);
   },
+  regen:(data:any)=>{
+    return newRequest.post('/product/regennft',data);
+  },
   getAlluser:(page:number)=>{
     return newRequest.get(`/user/allusers`);
   },
@@ -24,7 +27,9 @@ const userService = {
   },
   addadmin:(data:any) =>{
     return newRequest.post(`/user/updaterole`,data);
-  }
+  },
+
+
 };
 
 

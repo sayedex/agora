@@ -2,9 +2,28 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ATTRIBUTES } from "../../config/collection";
 import chainlink from "../../public/icon/chainlink.png";
-type Props = {};
+import { NFTMetadata } from '../../typeing';
+import AttributesComponent from "./Helper/AttributesComponent"
 
-export function Attributes({}: Props) {
+type Props = {
+  metadata:NFTMetadata | null;
+  Isregen?:Boolean 
+};
+
+export function Attributes({metadata,Isregen}: Props) {
+  const Attributes = {
+    Luck: 0,
+    Might: 0,
+    Resilience: 0,
+    Serge: 0,
+    Wit: 0,
+  };
+
+  console.log(metadata);
+  
+
+  const data:any =metadata?metadata.character_traits:Attributes;
+
   return (
     <div className="border border-[#262C33] mt-10 p-5 flex flex-col gap-y-3">
       <h2 className="text-3xl font-extrabold text-center bg_gr text-transparent bg-clip-text tracking-[1px] uppercase">
@@ -16,20 +35,7 @@ export function Attributes({}: Props) {
       </p>
 
       <div>
-        <table className="w-10/12 m-auto border-separate border-spacing-2 pt-3	">
-          <tbody className="">
-            {ATTRIBUTES.map((el, indx) => {
-              return (
-                <tr className="" key={indx}>
-                  <td className="bg-[#262C33] py-2 px-2">
-                    <p>{el.name}</p>
-                  </td>
-                  <td className="bg-[#262C33] text-center">?</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <AttributesComponent attributes={Isregen?data:Attributes} />
       </div>
 
       <div className="flex flex-wrap items-center gap-3 m-auto">

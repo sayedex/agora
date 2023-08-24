@@ -15,15 +15,19 @@ import { ToastContainer, toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { getuserMe } from "../../store/reducers/userlogin";
 import { getupdateinfo } from "../../store/reducers/updateproduct";
+import useNFTMetadata from "../../hooks/regen/Nftmetadata";
+
 type Props = {
   product: product;
-  id:any
+  id: any;
+  tokenid?: number;
+  Isregen?:Boolean
 };
 
-export function Collectioninfo({ product ,id}: Props) {
+export function Collectioninfo({ product, id, Isregen }: Props) {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppdispatch();
-  const {address}  = useAccount();
+  const { address } = useAccount();
   const [buyloading, setbuyloading] = useState(false);
   const {
     description,
@@ -39,13 +43,26 @@ export function Collectioninfo({ product ,id}: Props) {
     mint,
     character,
     paymentTokens,
+    regen,
+    tokenId
   } = product;
+
+  //this section will be responsible for regen page
+  const paymentToken = Isregen ? regen : paymentTokens;
+
+  // hook for getting nft metadata for regen
+  const {metadata}  = useNFTMetadata(tokenId)
+
+
+
+  //payment token ->
   const [preselectedToken, setPreselectedToken] = useState({
     name: "",
     _id: "",
     price: 0,
   });
 
+  //reload user balance
   const reloadUserbalance = () => {
     if (address) {
       dispatch(getuserMe({ wallet: address }));
@@ -53,17 +70,16 @@ export function Collectioninfo({ product ,id}: Props) {
     }
   };
 
-const UpdateState = ()=>{
-  if (typeof(id)=="string") {
-
-    dispatch(
-      getupdateinfo({
-        productId: id,
-      })
-    );
-  }
-}
-
+  //Update product state
+  const UpdateState = () => {
+    if (typeof id == "string") {
+      dispatch(
+        getupdateinfo({
+          productId: id,
+        })
+      );
+    }
+  };
 
   //handleTokenSelection
   const handleTokenSelection = (event: any) => {
@@ -78,15 +94,69 @@ const UpdateState = ()=>{
     });
   };
 
+  // use Effect for set inital token
   useEffect(() => {
-    if (paymentTokens != undefined) {
-      setPreselectedToken({
-        name: paymentTokens[0].name,
-        _id: paymentTokens[0].id,
-        price: paymentTokens[0].price,
-      });
+    if (Isregen) {
+      if (paymentTokens != undefined) {
+        setPreselectedToken({
+          name: regen[0].name,
+          _id: regen[0].id,
+          price: regen[0].price,
+        });
+      }
+    } else {
+      if (paymentTokens != undefined) {
+        setPreselectedToken({
+          name: paymentTokens[0].name,
+          _id: paymentTokens[0].id,
+          price: paymentTokens[0].price,
+        });
+      }
     }
-  }, [paymentTokens]);
+  }, [paymentTokens, regen]);
+
+
+const regenNFT = async()=>{
+  if (!user) return;
+  const userTokenBalance = user.balances.find(
+    (balance: any) => balance.token._id.toString() === preselectedToken._id
+  );
+
+  if (
+    userTokenBalance?.amount &&
+    userTokenBalance?.amount > preselectedToken.price
+  ) {
+    setbuyloading(true);
+    const data = {
+      _tokenId:tokenId,
+      paymentid: preselectedToken._id,
+      amount: 1,
+      productid
+    };
+    const response = userService
+      .regen(data)
+      .then((e) => {
+        setbuyloading(false);
+        reloadUserbalance();
+        console.log("done");
+        toast.success(`NFT regen successfully done`, {
+          position: "bottom-right",
+        });
+      })
+      .catch((e) => {
+        setbuyloading(false);
+        console.log(e);
+      });
+  } else {
+    toast.warning(`Insufficient balance to regen the nft`, {
+      position: "bottom-right",
+    });
+  }
+}
+
+
+
+
 
   const handlebuy = () => {
     if (!user) return;
@@ -100,9 +170,10 @@ const UpdateState = ()=>{
     ) {
       setbuyloading(true);
       const data = {
-        productid: productid,
+        tokenId,
         paymentid: preselectedToken._id,
         amount: 1,
+        productid
       };
       const response = userService
         .Buynft(data)
@@ -183,7 +254,7 @@ const UpdateState = ()=>{
             value={preselectedToken.name}
             onChange={handleTokenSelection}
           >
-            {paymentTokens?.map((token: any, indx) => (
+            {paymentToken?.map((token: any, indx) => (
               <option className="py-3" key={indx} value={token.id}>
                 {token.symbol}
               </option>
@@ -197,27 +268,41 @@ const UpdateState = ()=>{
       {/* buy now */}
       <div className="pt-10 flex flex-col gap-y-3">
         <p>{minted} minted</p>
-        <button
-          onClick={() => handlebuy()}
-          disabled={buyloading}
-          className=" text-sm  w-fit
+
+        {Isregen ? (
+          <button
+            onClick={() => regenNFT()}
+            disabled={buyloading}
+            className=" text-sm  w-fit
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap uppercase  bg_btn_gr"
-        >
-          <div className="bg-[#13181D] hover:bg-white hover:text-black px-6 py-2  m-[2px]">
-            {buyloading?"Buying..":"Buy Now"}
-          </div>
-        </button>
+          >
+            <div className="bg-[#13181D] hover:bg-white hover:text-black px-6 py-2  m-[2px]">
+              {buyloading ? "loading.." : "Regen attributes"}
+            </div>
+          </button>
+        ) : (
+          <button
+            onClick={() => handlebuy()}
+            disabled={buyloading}
+            className=" text-sm  w-fit
+          font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap uppercase  bg_btn_gr"
+          >
+            <div className="bg-[#13181D] hover:bg-white hover:text-black px-6 py-2  m-[2px]">
+              {buyloading ? "Buying.." : "Buy Now"}
+            </div>
+          </button>
+        )}
       </div>
       {/* buy now */}
       {/* Description */}
       <Description description={description} />
       {/* Description */}
       {/* Attributes */}
-      <Attributes />
+      <Attributes metadata={metadata} Isregen={Isregen} />
       {/* Attributes */}
 
       {/* traits */}
-      <Nftboost />
+      <Nftboost  metadata={metadata} Isregen={Isregen} />
       {/* traits */}
       {/* static content */}
       <Coming />

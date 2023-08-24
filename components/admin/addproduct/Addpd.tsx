@@ -9,6 +9,7 @@ import {
 import { useAppSelector, useAppdispatch } from "../../../hooks/redux";
 import { useRouter } from "next/router";
 
+
 type Props = {
   mode: "add" | "update";
   id?: string;
@@ -31,6 +32,7 @@ interface product {
   mint: string | undefined;
   value: string | undefined;
   featured: boolean;
+  tokenId:any
 }
 
 function Addpd({ mode, id }: Props) {
@@ -48,6 +50,7 @@ function Addpd({ mode, id }: Props) {
     mint: "",
     value: "",
     featured: false,
+    tokenId:"",
 
   });
   const [traitType, setTraitType] = useState("");
@@ -70,7 +73,8 @@ function Addpd({ mode, id }: Props) {
     mint,
     character,
     USD,
-    featured
+    featured,
+    tokenId
   } = product || {};
 
   // useEffect(() => {
@@ -105,7 +109,8 @@ function Addpd({ mode, id }: Props) {
         character: character,
         mint: mint,
         value: USD?.toString(),
-        featured:featured?featured:false
+        featured:featured?featured:false,
+        tokenId:tokenId
       });
     }
   }, [product]);
@@ -137,7 +142,9 @@ function Addpd({ mode, id }: Props) {
           productId: id,
           productData: inputs,
         })
+        
       );
+      router.push('/admin/allproduct');
     }
   };
 
@@ -162,6 +169,12 @@ function Addpd({ mode, id }: Props) {
           name="productid"
           type="text"
           value={inputs.productid}
+          onChange={handleInputChange}
+        />
+          <Inputhelper
+          name="tokenId"
+          type="text"
+          value={inputs.tokenId}
           onChange={handleInputChange}
         />
         <Inputhelper

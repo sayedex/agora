@@ -37,10 +37,10 @@ function Yournft({}: Props) {
           {nftloading == "pending" || nftloading=='idle' ? (
             <LoadSpinner />
           ) : (
-            <div  className="flex flex-col md:flex-row items-center">
+            <div  className="flex flex-col md:flex-row items-center gap-5">
               {nftBalance!=null && nftBalance.length == 0
                 ? "You don't have any nft!"
-                : nftBalance?.map((e, index) => {
+                : nftBalance?.map((e:any, index) => {
                     return <Nft key={index} nft={e} />;
                   })}
             </div>

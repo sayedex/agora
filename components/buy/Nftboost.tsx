@@ -4,12 +4,18 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 //check
 import checkicon from "../../public/icon/check.svg";
 import SILVERVOLT_LOGO from "../../public/icon/SILVERVOLT_LOGO.webp";
-
+import { NFTMetadata } from '../../typeing';
 import { Bost } from "../../config";
 
-type Props = {};
+type Props = {
+  metadata:NFTMetadata | null;
+  Isregen?:Boolean 
+};
 
-export function Nftboost({}: Props) {
+
+export function Nftboost({metadata,Isregen}: Props) {
+  const boster:any  = metadata?.attributes;
+
   return (
     <div>
       <p className="py-5">
@@ -36,10 +42,13 @@ export function Nftboost({}: Props) {
 
       <div className="flex flex-wrap gap-5 justify-start ">
         {Bost.map((e, indx) => {
+          const matchingItem = boster?.find((item:any) => item.trait_type && item.trait_type.trim() === e.type?.trim());
+          const value = matchingItem?.value;
+  
           return (
             <div
               key={indx}
-              className="max-w-[250px] flex flex-col gap-y-2 border border-[#262C33]   pt-3 relative"
+              className={`max-w-[250px] flex flex-col gap-y-2 border border-[#262C33]   pt-3 relative ${Isregen && value==0?"opacity-20":""}`}
             >
               <div>
                 <LazyLoadImage className="m-auto" src={checkicon.src} />
@@ -57,7 +66,7 @@ export function Nftboost({}: Props) {
 
               {e.type && (
                 <div className="boost-stat flex justify-center items-center relative   ">
-                  <p className='absolute mt-[2rem]' >{e.type}</p>
+                  <p className='absolute mt-[2rem] text-center text-[14px]' >{e.type}</p>
                 </div>
               )}
             </div>

@@ -8,7 +8,7 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { bsc,bscTestnet,goerli ,arbitrum,polygonMumbai} from "wagmi/chains";
+import { bsc,bscTestnet,goerli ,arbitrum,polygonMumbai, polygon} from "wagmi/chains";
 import { ethers } from "ethers";
 
 
@@ -23,7 +23,7 @@ export const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 const alchemyId = "Tv277_RjwkXDuii_WGiG_X8RL-T56yyG";
 //  up client
 //
-const chains = [polygonMumbai];
+const chains = [polygon];
 
 export const client = createClient(
     getDefaultClient({

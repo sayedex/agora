@@ -53,47 +53,49 @@ export const Bost = [
     traits_info:"Gives you additional weekly auction bids. Up to 5 / week for a Secret rare.",
     value: 5,
     max_value: 6,
-    type:"SERGE"
+    type:"Serge"
   },
   {
     trait_type: "MINING BOOST    ",
     traits_info:"Boosts your VOLT mining power. Up to 10% for a Secret rare.",
     value: 5,
     max_value: 6,
-    type:"MIGHT  "
+    type:"Might  "
   },
   {
     trait_type: "TIER BOOST    ",
     traits_info:"Instant access to Diamond-Tier Auctions for a Secret rare.    ",
     value: 5,
     max_value: 6,
+    type:"Resilience"
   },
   {
     trait_type: "REFERRAL BOOST    ",
     traits_info:"Boosts your referral VOLT bonus. Up to 4% extra for a Secret rare. ",
     value: 5,
     max_value: 6,
-    type:"RESILIENCE    "
+    type:"Resilience    "
   },
   {
     trait_type: "WHEEL SPIN BOOST    ",
     traits_info:"Cheaper Wheel Spins! (Coming Soon) Up to 80% off wheel spins for a Secret rare.    ",
     value: 5,
     max_value: 6,
-    type:"WIT    "
+    type:"Luck    "
   },
   {
     trait_type: "LOTTERY TICKET BOOST",
     traits_info:"Cheaper Lottery Tickets! Up to 80% off Lottery tickets for a Secret rare.    ",
     value: 5,
     max_value: 6,
-    type:"LUCK    "
+    type:"Silvervolt Mining Boost    "
   },
   {
     trait_type: "HIGH ROLLER ACCESS    ",
     traits_info:"Coming Soon.    ",
     value: 5,
     max_value: 6,
+    type:"Collection"
   },
   {
     trait_type: "CUSTOM NAME    ",

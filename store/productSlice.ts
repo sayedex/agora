@@ -23,12 +23,21 @@ export interface product{
   mint: string;
   value:number
   USD:number,
+  tokenId:any
   featured:boolean
     paymentTokens?:[{
     name:string,
     id:string,
     price:number
   }]
+
+  regen:[
+    {
+      name:string,
+      id:string,
+      price:number
+    }
+  ]
 }
 
 

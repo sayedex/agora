@@ -15,13 +15,13 @@ export const BalanceToken = ({ name, value }: Props) => {
       <div className="  rounded-3xl h-[40px]">
           <span className="cursor-pointer  rounded-3xl hover:bg-slate-700 uppercase">
             <div className="flex flex-row gap-x-2 p-2">
-              <Image
+              {/* <Image
                 className="relative"
                 src={`/Token/dai.svg`}
                 width={22}
                 height={22}
                 alt={name}
-              />
+              /> */}
               {name}
             </div>
           </span>

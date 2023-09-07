@@ -16,15 +16,16 @@ import { useAccount } from "wagmi";
 import { getuserMe } from "../../store/reducers/userlogin";
 import { getupdateinfo } from "../../store/reducers/updateproduct";
 import useNFTMetadata from "../../hooks/regen/Nftmetadata";
+import useLastGenerationTime from "../../hooks/regen/useLastGenerationTime";
 
 type Props = {
   product: product;
   id: any;
-  tokenid?: number;
-  Isregen?:Boolean
+  tokenid?: any;
+  Isregen?: Boolean;
 };
 
-export function Collectioninfo({ product, id, Isregen }: Props) {
+export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppdispatch();
   const { address } = useAccount();
@@ -44,15 +45,21 @@ export function Collectioninfo({ product, id, Isregen }: Props) {
     character,
     paymentTokens,
     regen,
-    tokenId
+    tokenId,
   } = product;
 
   //this section will be responsible for regen page
   const paymentToken = Isregen ? regen : paymentTokens;
+  const [RegenTime, setRegenTime] = useState(false);
 
   // hook for getting nft metadata for regen
-  const {metadata}  = useNFTMetadata(tokenId)
-
+  const { metadata } = useNFTMetadata(tokenid, RegenTime);
+  const {
+    lastGenerationTime,
+    loading: GenerationTimeLoading,
+    countdown,
+    regenEnable,
+  } = useLastGenerationTime(tokenid, RegenTime);
 
 
   //payment token ->
@@ -75,7 +82,7 @@ export function Collectioninfo({ product, id, Isregen }: Props) {
     if (typeof id == "string") {
       dispatch(
         getupdateinfo({
-          productId: id,
+          productid: id,
         })
       );
     }
@@ -115,48 +122,51 @@ export function Collectioninfo({ product, id, Isregen }: Props) {
     }
   }, [paymentTokens, regen]);
 
+  const regenNFT = async () => {
+    if (!user) return;
 
-const regenNFT = async()=>{
-  if (!user) return;
-  const userTokenBalance = user.balances.find(
-    (balance: any) => balance.token._id.toString() === preselectedToken._id
-  );
+    const userTokenBalance = user.balances.find(
+      (balance: any) => balance.token._id.toString() === preselectedToken._id
+    );
 
-  if (
-    userTokenBalance?.amount &&
-    userTokenBalance?.amount > preselectedToken.price
-  ) {
-    setbuyloading(true);
-    const data = {
-      _tokenId:tokenId,
-      paymentid: preselectedToken._id,
-      amount: 1,
-      productid
-    };
-    const response = userService
-      .regen(data)
-      .then((e) => {
-        setbuyloading(false);
-        reloadUserbalance();
-        console.log("done");
-        toast.success(`NFT regen successfully done`, {
-          position: "bottom-right",
+    if (
+      userTokenBalance?.amount &&
+      userTokenBalance?.amount > preselectedToken.price
+    ) {
+      setbuyloading(true);
+      const data = {
+        _tokenId: tokenid,
+        paymentid: preselectedToken._id,
+        amount: 1,
+        productid,
+      };
+      const response = userService
+        .regen(data)
+        .then((e) => {
+          setbuyloading(false);
+          reloadUserbalance();
+          console.log("done");
+          toast.success(`Regen processing Data will be updated`, {
+            position: "bottom-right",
+          });
+          // Set RegenTime to true when the regen is done
+          setRegenTime(true);
+
+          // Automatically reset RegenTime to false after 15 minutes
+          setTimeout(() => {
+            setRegenTime(false);
+          }, 1 * 60 * 1000); // 15 minutes in milliseconds
+        })
+        .catch((e) => {
+          setbuyloading(false);
+          console.log(e);
         });
-      })
-      .catch((e) => {
-        setbuyloading(false);
-        console.log(e);
+    } else {
+      toast.warning(`Insufficient balance to regen the nft`, {
+        position: "bottom-right",
       });
-  } else {
-    toast.warning(`Insufficient balance to regen the nft`, {
-      position: "bottom-right",
-    });
-  }
-}
-
-
-
-
+    }
+  };
 
   const handlebuy = () => {
     if (!user) return;
@@ -173,7 +183,7 @@ const regenNFT = async()=>{
         tokenId,
         paymentid: preselectedToken._id,
         amount: 1,
-        productid
+        productid,
       };
       const response = userService
         .Buynft(data)
@@ -268,11 +278,15 @@ const regenNFT = async()=>{
       {/* buy now */}
       <div className="pt-10 flex flex-col gap-y-3">
         <p>{minted} minted</p>
+        {
+          RegenTime && <p>Regen processing..</p>
+        }
+      { !RegenTime && <p>{countdown}</p>}
 
         {Isregen ? (
           <button
             onClick={() => regenNFT()}
-            disabled={buyloading}
+            disabled={buyloading || regenEnable }
             className=" text-sm  w-fit
           font-semibold font-Montserrat tracking-[2px] text-white whitespace-nowrap uppercase  bg_btn_gr"
           >
@@ -302,7 +316,7 @@ const regenNFT = async()=>{
       {/* Attributes */}
 
       {/* traits */}
-      <Nftboost  metadata={metadata} Isregen={Isregen} />
+      <Nftboost metadata={metadata} Isregen={Isregen} />
       {/* traits */}
       {/* static content */}
       <Coming />

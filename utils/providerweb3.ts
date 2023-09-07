@@ -12,7 +12,7 @@ import { bsc,bscTestnet,goerli ,arbitrum,polygonMumbai, polygon} from "wagmi/cha
 import { ethers } from "ethers";
 
 
-const RPC_URL = 'https://bsc-dataseed4.binance.org';
+const RPC_URL = 'https://polygon-bor.publicnode.com';
 export const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
 

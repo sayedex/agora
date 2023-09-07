@@ -11,19 +11,19 @@ function RegenNFT({}: Props) {
   const dispath = useAppdispatch();
   const {product}=useAppSelector((state)=>state.product);
   const router = useRouter();
-  const { id } = router.query;
+  const { id,token } = router.query;
 
   console.log("product",product);
   
 
   useEffect(() => {
-    if (typeof(id)=="string") {
+   
       dispath(
         getupdateinfo({
-          productId: id,
+          productid: id,
         })
       );
-    }
+
   }, [dispath, id]);
 
   return (
@@ -32,7 +32,7 @@ function RegenNFT({}: Props) {
       {
         product?  <div className="flex flex-col md:flex-row gap-10 relative mb-6">
         <CollectionImage imageUrl={product.imgUrl} />
-        <Collectioninfo product={product} id={id} Isregen={true}/>
+        <Collectioninfo product={product} id={id} Isregen={true} tokenid={token}/>
       </div>:<LoadSpinner/>
       } 
       </div>

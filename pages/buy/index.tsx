@@ -14,14 +14,13 @@ function Buynft({}: Props) {
   const { id } = router.query;
 
   useEffect(() => {
-    if (typeof(id)=="string") {
 
       dispath(
         getupdateinfo({
-          productId: id,
+          productid: id,
         })
       );
-    }
+  
   }, [dispath, id]);
 
   return (

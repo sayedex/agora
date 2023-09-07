@@ -6,9 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 
 export const getupdateinfo = createAsyncThunk(
     'products/getinfo',
-    async (params: { productId:string}, { rejectWithValue }) => {
+    async (params: { productid:any}, { rejectWithValue }) => {
       try {
-        const response = await productService.getProduct(params.productId);
+        const response = await productService.getProduct(params.productid);
+        console.log("res",response);
+        
         return response.data;
       } catch (error:any) {
         return rejectWithValue(error.response.data);

@@ -88,7 +88,7 @@ function Addpd({ mode, id }: Props) {
       console.log("call it1");
       dispath(
         getupdateinfo({
-          productId: id,
+          productid: id,
         })
       );
     }

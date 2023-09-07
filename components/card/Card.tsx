@@ -13,7 +13,7 @@ type Props = {
 export function Card({ carddata }: Props) {
   const router = useRouter();
   const RedirectBuypage = () => {
-    router.push(`/buy?id=${carddata._id}`);
+    router.push(`/buy?id=${carddata.productid}`);
   };
 
   const { rarity } = carddata;

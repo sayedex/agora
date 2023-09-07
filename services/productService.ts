@@ -7,8 +7,8 @@ const productService = {
   addProduct: (productData:any) => {
     return newRequest.post('/product/addProduct', productData);
   },
-  getProduct: (productId: string) => {
-    return newRequest.get(`/product/product/${productId}`);
+  getProduct: (productid: any) => {
+    return newRequest.get(`/product/product/${productid}`);
   },
   updateProduct: (productId: string,productData:any) => {
     return newRequest.post(`/product/Updateproduct/${productId}`,productData);

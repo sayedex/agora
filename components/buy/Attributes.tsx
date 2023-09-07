@@ -19,9 +19,7 @@ export function Attributes({metadata,Isregen}: Props) {
     Wit: 0,
   };
 
-  console.log(metadata);
   
-
   const data:any =metadata?metadata.character_traits:Attributes;
 
   return (

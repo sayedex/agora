@@ -3,17 +3,17 @@ import axios from 'axios';
 import { NFTMetadata } from '../../typeing';
 
 
-const useNFTMetadata = (tokenId: string) => {
+const useNFTMetadata = (tokenId: string,ref:boolean) => {
   const [metadata, setMetadata] = useState<NFTMetadata | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const url = "https://nft.jedstar.com/token"
+  const url = "https://api.cipherem.xyz/api/token"
 
   useEffect(() => {
     const fetchNFTMetadata = async () => {
       try {
-        const response = await axios.get(`${url}/${tokenId}`);
+        const response = await axios.get(`/api/metadata?tokenId=${tokenId}`);
         setMetadata(response.data);
         setLoading(false);
       } catch (err) {
@@ -23,7 +23,7 @@ const useNFTMetadata = (tokenId: string) => {
     };
 
     fetchNFTMetadata();
-  }, [tokenId]);
+  }, [tokenId,ref]);
 
   return { metadata, loading, error };
 };

@@ -50,15 +50,19 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
 
   //this section will be responsible for regen page
   const paymentToken = Isregen ? regen : paymentTokens;
+
+  console.log(regen);
+  
   const [RegenTime, setRegenTime] = useState(false);
 
   // hook for getting nft metadata for regen
-  const { metadata } = useNFTMetadata(tokenid, RegenTime);
+  const { metadata ,fetchNFTMetadata} = useNFTMetadata(tokenid, RegenTime);
   const {
     lastGenerationTime,
     loading: GenerationTimeLoading,
     countdown,
     regenEnable,
+    fetchLastGenerationTime
   } = useLastGenerationTime(tokenid, RegenTime);
 
 
@@ -91,7 +95,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
   //handleTokenSelection
   const handleTokenSelection = (event: any) => {
     const selectedTokenId = event.target.value;
-    const selectedToken: any = paymentTokens?.find(
+    const selectedToken: any = paymentToken?.find(
       (token: any) => token.id === selectedTokenId
     );
     setPreselectedToken({
@@ -104,7 +108,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
   // use Effect for set inital token
   useEffect(() => {
     if (Isregen) {
-      if (paymentTokens != undefined) {
+      if (paymentToken != undefined) {
         setPreselectedToken({
           name: regen[0].name,
           _id: regen[0].id,
@@ -154,8 +158,13 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
 
           // Automatically reset RegenTime to false after 15 minutes
           setTimeout(() => {
+               // if its done then refetch the last timestamp..
+            fetchLastGenerationTime()
             setRegenTime(false);
-          }, 1 * 60 * 1000); // 15 minutes in milliseconds
+            fetchNFTMetadata();
+          }, .5 * 60 * 1000); // 30s
+
+
         })
         .catch((e) => {
           setbuyloading(false);

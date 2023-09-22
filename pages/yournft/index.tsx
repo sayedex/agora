@@ -21,7 +21,6 @@ function Yournft({}: Props) {
     }
   }, [address,isActive]);
 
-  console.log(isActive);
   
 
   return (

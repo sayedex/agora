@@ -4,17 +4,17 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 //check
 import checkicon from "../../public/icon/check.svg";
 import SILVERVOLT_LOGO from "../../public/icon/SILVERVOLT_LOGO.webp";
-import { NFTMetadata } from '../../typeing';
+import { NFTMetadata } from "../../typeing";
 import { Bost } from "../../config";
 
 type Props = {
-  metadata:NFTMetadata | null;
-  Isregen?:Boolean 
+  metadata: NFTMetadata | null;
+  Isregen?: Boolean;
 };
 
-
-export function Nftboost({metadata,Isregen}: Props) {
-  const boster:any  = metadata?.attributes;
+export function Nftboost({ metadata, Isregen }: Props) {
+  const boster: any = metadata?.attributes;
+  console.log(boster);
 
   return (
     <div>
@@ -29,44 +29,81 @@ export function Nftboost({metadata,Isregen}: Props) {
           This NFT offers various in app Boosts and Upgrades to our SILVERVOLT
           gaming product. Sign up and top off your favorite games for FREE at
           <a
-            className="text-[#1C84FE]"
-            href="http://"
+            className="text-[#1C84FE] ml-[4px]"
+            href="https://www.silvervolt.app/"
             target="_blank"
             rel="noreferrer"
           >
-          
             www.silvervolt.app
           </a>
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-5 justify-start ">
-        {Bost.map((e, indx) => {
-          const matchingItem = boster?.find((item:any) => item.trait_type && item.trait_type.trim() === e.type?.trim());
+      <div className="flex flex-wrap gap-5 justify-start">
+        
+        {
+        // This map will maping our static data and try to metch with trait_type
+        Bost.map((e:any, indx:number) => {
+          const matchingItem = boster?.find(
+            (item: any) =>
+              item.trait_type && item.trait_type.trim() === e.trait_type?.trim()
+          );
+
+          const matchingItemForRegen = boster?.find(
+            (item: any) =>
+              item.trait_type && item.trait_type.trim() === e.type?.trim()
+          );
+
+      
+        
           const value = matchingItem?.value;
-  
+          // checking if value not undifined
+          const isThereValue = value != undefined;
+          // checking if its single value or {1,2,1 } value
+          const IsSingleValue = isThereValue
+            ? value
+              ? value.toString().indexOf(",") === -1
+              : true
+            : false;
+
+          // console.log(
+          //   `IsSingleValue:${IsSingleValue} value:${value} name:${e.name}`
+          // );
+
+          //checking if its array value + not undefined
+          const IsThisArrayvalue =
+            isThereValue && IsSingleValue === false && IsSingleValue !== null;
+
+            // if value is {1,2,1 } then we split it and add 💎
+          const valuesArray =
+            IsThisArrayvalue && value?.split(",").map((v: string) => `💎${v}`);
+
           return (
             <div
               key={indx}
-              className={`max-w-[250px] flex flex-col gap-y-2 border border-[#262C33]   pt-3 relative ${Isregen && value==0?"opacity-20":""}`}
+              className={`w-full md:w-[300px] flex flex-col gap-y-2 border border-[#262C33]   pt-3 relative ${
+                Isregen ? matchingItemForRegen?.value == 0 ? "opacity-20" : "opacity-100":"opacity-100"
+              }`}
             >
               <div>
                 <LazyLoadImage className="m-auto" src={checkicon.src} />
               </div>
               <div className="m-auto ">
-                <p className="text-center text-2xl uppercase  font-bold">
-                  {e.trait_type}
+                <p className="text-center text-xl uppercase px-4  font-bold">
+                  {isThereValue && !IsThisArrayvalue && `${value}%`} {e.name}
                 </p>
               </div>
               <div>
-                <p className="text-center globaldarktext text-sm">
-                  {e.traits_info}
+                <p className="text-center globaldarktext text-sm px-4">
+                  {IsThisArrayvalue && valuesArray.join(", ")} {e.dyamicInfo}
                 </p>
               </div>
 
               {e.type && (
                 <div className="boost-stat flex justify-center items-center relative   ">
-                  <p className='absolute mt-[2rem] text-center text-[14px]' >{e.type}</p>
+                  <p className="absolute mt-[2rem] text-center text-[14px]">
+                    {e.type}
+                  </p>
                 </div>
               )}
             </div>

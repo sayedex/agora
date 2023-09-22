@@ -14,12 +14,12 @@ export const CollectionImage: React.FC<CollectionImageProps> = ({
         <LazyLoadImage src={imageUrl} alt="Collection Image" />
       </div>
 
-      <div className="py-10 flex flex-col gap-y-3">
+      <div className="py-10 flex flex-col gap-y-3 pb-10 border-b">
         <p className="text-[#827A8E] font-bold">ART BY</p>
         <p>Jedstar team</p>
         <p>In-house artists</p>
         <p>
-          <a href="https://www.jedstar.com" target="_blank" rel="noreferrer">
+          <a href="https://www.jedstar.com"  className="text-[#1C84FE] " target="_blank" rel="noreferrer">
             https://www.jedstar.com
           </a>
         </p>

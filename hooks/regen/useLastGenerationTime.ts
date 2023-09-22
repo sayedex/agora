@@ -7,6 +7,7 @@ interface LastGenerationTimeHook {
   lastGenerationTime: string | null;
   countdown: string | null;
   error: string | null;
+  fetchLastGenerationTime:()=>void
 }
 
 const useLastGenerationTime = (tokenId: string,ref:boolean): LastGenerationTimeHook => {
@@ -27,7 +28,7 @@ const getTime = ()=>{
   const time  =updatedTimestamp*1000- Date.now();
    // Check if time has finished
    if (time <= 0) {
-    setCountdown("You are ready to regen!!"); // Or any message you want
+    setCountdown("THE OWNER CAN REGEN THIS NFT"); // Or any message you want
     setregenEnable(false)
     return; // Stop further countdown updates
   }
@@ -78,10 +79,10 @@ const fetchLastGenerationTime = useCallback(async () => {
       fetchLastGenerationTime();
     }
   }, [tokenId,ref])
+ 
 
 
-
-  return { loading, lastGenerationTime, countdown, error ,regenEnable};
+  return { loading, lastGenerationTime, countdown, error ,regenEnable,fetchLastGenerationTime};
 };
 
 export default useLastGenerationTime;

@@ -86,7 +86,7 @@ const userSlice = createSlice({
       }),
       builder
       .addCase(getNFT.pending, (state) => {
-        state.nftloading = "done";
+        state.nftloading = "pending";
       })
       .addCase(getNFT.fulfilled, (state, action) => {
         state.nftloading = "done";
@@ -95,7 +95,7 @@ const userSlice = createSlice({
       
       })
       .addCase(getNFT.rejected, (state, action) => {
-        state.nftloading = "done";
+        state.nftloading = "error";
       }),
       builder
       .addCase(BuynftUser.pending, (state) => {

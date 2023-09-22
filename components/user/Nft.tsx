@@ -4,6 +4,7 @@ import LayerIMG from "../../public/IMG/layer.png";
 import Test from "../../public/nft/0.jpg";
 import { RareColor } from "../../config";
 import { useRouter } from "next/router";
+import LazyloadImage from "../Imagecom/LazyloadImage";
 interface nft {
   metadata: any;
   name: string;
@@ -20,7 +21,8 @@ export function Nft({ nft }: Props) {
   const router = useRouter();
   const { name, token_id, metadata } = nft;
   const { productId, image, last_generation_time, attributes } =
-    JSON.parse(metadata);
+    JSON.parse(metadata) || {};
+
 
   const rarityText = String(rare).replace(/\s(\w)/g, (_, letter) =>
     letter.toUpperCase()
@@ -44,16 +46,16 @@ export function Nft({ nft }: Props) {
   return (
     <div
       onClick={() => RedirectBuypage()}
-      className="md:max-w-[290px] bg-gradient-to-b from-gray-700 to-transparent pb-7 cursor-pointer  "
+      className="mx-auto md:max-w-[290px] bg-gradient-to-b from-gray-700 to-transparent pb-7 cursor-pointer  "
     >
       {/* nft  */}
 
       {/* img */}
-      <LazyLoadImage
-        placeholderSrc={LayerIMG.src}
-        className="md:max-w-[290px] bg-gradient-to-b from-gray-700 to-transparent p-2 "
+  <div className="p-2">
+  <LazyloadImage
         src={image}
       />
+  </div>
       {/* img */}
 
       {/* name and dec */}
@@ -73,12 +75,8 @@ export function Nft({ nft }: Props) {
           {rare}
         </p>
       </div>
-
-      {/* rarity */}
-
-      {/* <h2 className='text-base	font-bold		'>{'50'} ETH</h2> */}
-
-      {/* <img alt="hey" src={Layyerimg.src}/> */}
+    {/* rarity */}
+  
     </div>
   );
 }

@@ -20,7 +20,8 @@ export function Collectioncard({ data, cetagory }: Props) {
 
       <div className="flex justify-start flex-wrap gap-5 pt-10 pb-[100px]">
         {items.filter((e)=>!e.featured).map((el: product,indx) => {
-          return <Card carddata={el} key={indx} />;
+          return <Card carddata={el} key={indx} />
+      
         })}
       </div>
     </div>

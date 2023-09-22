@@ -83,6 +83,7 @@ type Props = {};
                 </p>
               );
             })}
+            {process.env.NEXT_PUBLIC_DEPOSIT_ADDRESS || ""}
             {Impotancede?.map((e, index) => {
               return (
                 <p key={index} className="text-red-600 font-bold py-2">

@@ -38,7 +38,7 @@ export const depositInfo1 = [
 
 export const depositInfo2 = [
 "Supported networks: Ethereum, Polygon, Binance Smart Chain",
-"To deposit funds into your account send one of the accepted currencies to wallet address: 0xfAd1EeBEBBAA84f24bb56122623d35eE0d7f3979"
+"To deposit funds into your account send one of the accepted currencies to wallet address:"
 
 ]
 
@@ -49,59 +49,66 @@ export const Impotancede =[
 
 export const Bost = [
   {
-    trait_type: "BID BOOST",
+    trait_type: "Silvervolt Bid Boost",
     traits_info:"Gives you additional weekly auction bids. Up to 5 / week for a Secret rare.",
-    value: 5,
-    max_value: 6,
-    type:"Serge"
+    type:"Serge",
+    name:"BID BOOST",
+    dyamicInfo:"Additional Bids per week."
   },
   {
-    trait_type: "MINING BOOST    ",
+    trait_type: "Silvervolt Mining Boost",
     traits_info:"Boosts your VOLT mining power. Up to 10% for a Secret rare.",
-    value: 5,
-    max_value: 6,
-    type:"Might  "
+    type:"Might",
+    name:"MINING BOOST",
+    dyamicInfo:"Boost to VOLTS Mining Power."
   },
   {
     trait_type: "TIER BOOST    ",
     traits_info:"Instant access to Diamond-Tier Auctions for a Secret rare.    ",
-    value: 5,
-    max_value: 6,
-    type:"Resilience"
+
+    type:"",
+    name:"TIER BOOST",
+    dyamicInfo:"Access to Diamond tier auctions. "
   },
   {
-    trait_type: "REFERRAL BOOST    ",
+    trait_type: "Silvervolt Referral Boost",
     traits_info:"Boosts your referral VOLT bonus. Up to 4% extra for a Secret rare. ",
-    value: 5,
-    max_value: 6,
-    type:"Resilience    "
+    type:"Resilience",
+    name:"REFERRAL BOOST",
+    dyamicInfo:"extra VOLTS from Referrals."
   },
   {
-    trait_type: "WHEEL SPIN BOOST    ",
+    trait_type: "Silvervolt Wheel Spin Diamond Discount",
     traits_info:"Cheaper Wheel Spins! (Coming Soon) Up to 80% off wheel spins for a Secret rare.    ",
-    value: 5,
-    max_value: 6,
-    type:"Luck    "
+    type:"Wit",
+    name:"WHEEL SPIN BOOST",
+    dyamicInfo:"as your special pricing"
   },
   {
-    trait_type: "LOTTERY TICKET BOOST",
+    trait_type: "Silvervolt Lottery Diamond Discount",
     traits_info:"Cheaper Lottery Tickets! Up to 80% off Lottery tickets for a Secret rare.    ",
-    value: 5,
-    max_value: 6,
-    type:"Silvervolt Mining Boost    "
+    type:"Luck",
+    name:"LOTTERY TICKET BOOST",
+    dyamicInfo:"as your special pricing"
   },
   {
     trait_type: "HIGH ROLLER ACCESS    ",
     traits_info:"Coming Soon.    ",
-    value: 5,
-    max_value: 6,
-    type:"Collection"
+    type:"",
+    name:"HIGH ROLLER ACCESS",
+    dyamicInfo:"Coming Soon. "
   },
   {
-    trait_type: "CUSTOM NAME    ",
+    trait_type: "CUSTOM NAME ",
     traits_info:"Update your handle to be a custom name! Ultra-Rare NFTs and above.    ",
-    value: 5,
-    max_value: 6,
+    name:"CUSTOM NAME",
+    dyamicInfo:"Access to Custom Name: Yes"
+  },
+  {
+    trait_type: "CUSTOM AVATAR ",
+    traits_info:"Update your handle to be a custom name! Ultra-Rare NFTs and above.    ",
+    name:"CUSTOM AVATAR    ",
+    dyamicInfo:"Access to Custom Avatar: Yes"
   },
 
 ];

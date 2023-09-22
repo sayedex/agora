@@ -20,14 +20,18 @@ export const ConnectButton = () => {
     if(!address) return;
     const nonce = await fetch("/api/nonce")
     const nonceRes = await nonce.text();
+    const msg = `You are signing on to the Agora, this signature will not cost any gas. Click SIGN to continue.
+
+    Unique login: ${nonceRes}
+    `;
     const res = await signMessageAsync({
-      message: nonceRes
+      message: msg
     });
 
     const data = {
       wallet:address,
       signature:res,
-      nonce:nonceRes
+      nonce:msg
     };
 
   await dispath(getuserlogin({info:data}));

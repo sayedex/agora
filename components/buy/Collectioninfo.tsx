@@ -51,7 +51,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
   //this section will be responsible for regen page
   const paymentToken = Isregen ? regen : paymentTokens;
 
-  console.log(regen);
+
   
   const [RegenTime, setRegenTime] = useState(false);
 
@@ -64,6 +64,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
     regenEnable,
     fetchLastGenerationTime
   } = useLastGenerationTime(tokenid, RegenTime);
+
 
 
   //payment token ->
@@ -147,7 +148,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
       const response = userService
         .regen(data)
         .then((e) => {
-          setbuyloading(false);
+       
           reloadUserbalance();
           console.log("done");
           toast.success(`Regen processing Data will be updated`, {
@@ -162,9 +163,9 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
             fetchLastGenerationTime()
             setRegenTime(false);
             fetchNFTMetadata();
-          }, .5 * 60 * 1000); // 30s
+          },40 * 1000); // 30s
 
-
+          setbuyloading(false);
         })
         .catch((e) => {
           setbuyloading(false);
@@ -197,13 +198,15 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
       const response = userService
         .Buynft(data)
         .then((e) => {
-          setbuyloading(false);
+   
           reloadUserbalance();
           console.log("done");
           toast.success(`NFT brought successfully`, {
             position: "bottom-right",
           });
+          setbuyloading(false);
         })
+        
         .catch((e) => {
           setbuyloading(false);
           console.log(e);

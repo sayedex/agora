@@ -14,6 +14,8 @@ const useNFTMetadata = (tokenId: string,ref:boolean) => {
       const response = await axios.get(`/api/metadata?tokenId=${tokenId}`);
       setMetadata(response.data);
       setLoading(false);
+      console.log("get",response.data);
+      
     } catch (err) {
       setError('Error fetching NFT metadata');
       setLoading(false);

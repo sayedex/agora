@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Send the data as a JSON response
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error fetching token data:', error);
+    console.error('Error fetching token data:');
     res.status(500).json({ error: 'Internal server error' });
   }
 };

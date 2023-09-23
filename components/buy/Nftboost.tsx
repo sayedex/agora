@@ -14,7 +14,6 @@ type Props = {
 
 export function Nftboost({ metadata, Isregen }: Props) {
   const boster: any = metadata?.attributes;
-  console.log(boster);
 
   return (
     <div>
@@ -40,75 +39,90 @@ export function Nftboost({ metadata, Isregen }: Props) {
       </div>
 
       <div className="flex flex-wrap gap-5 justify-start">
-        
         {
-        // This map will maping our static data and try to metch with trait_type
-        Bost.map((e:any, indx:number) => {
-          const matchingItem = boster?.find(
-            (item: any) =>
-              item.trait_type && item.trait_type.trim() === e.trait_type?.trim()
-          );
+          // This map will maping our static data and try to metch with trait_type
+          Bost.map((e: any, indx: number) => {
+            const matchingItem = boster?.find(
+              (item: any) =>
+                item.trait_type &&
+                item.trait_type.trim() === e.trait_type?.trim()
+            );
 
-          const matchingItemForRegen = boster?.find(
-            (item: any) =>
-              item.trait_type && item.trait_type.trim() === e.type?.trim()
-          );
+            const matchingItemForRegen = boster?.find(
+              (item: any) =>
+                item.trait_type && item.trait_type.trim() === e.type?.trim()
+            );
 
-      
-        
-          const value = matchingItem?.value;
-          // checking if value not undifined
-          const isThereValue = value != undefined;
-          // checking if its single value or {1,2,1 } value
-          const IsSingleValue = isThereValue
-            ? value
-              ? value.toString().indexOf(",") === -1
-              : true
-            : false;
+            const value = matchingItem?.value;
+            // checking if value not undifined
+            const isThereValue = value != undefined;
+            // checking if its single value or {1,2,1 } value
+            const IsSingleValue = isThereValue
+              ? value
+                ? value.toString().indexOf(",") === -1
+                : true
+              : false;
 
-          // console.log(
-          //   `IsSingleValue:${IsSingleValue} value:${value} name:${e.name}`
-          // );
+            // console.log(
+            //   `IsSingleValue:${IsSingleValue} value:${value} name:${e.name}`
+            // );
 
-          //checking if its array value + not undefined
-          const IsThisArrayvalue =
-            isThereValue && IsSingleValue === false && IsSingleValue !== null;
+            //checking if its array value + not undefined
+            const IsThisArrayvalue =
+              isThereValue && IsSingleValue === false && IsSingleValue !== null;
 
             // if value is {1,2,1 } then we split it and add 💎
-          const valuesArray =
-            IsThisArrayvalue && value?.split(",").map((v: string) => `💎${v}`);
+            const valuesArray =
+              IsThisArrayvalue &&
+              value?.split(",").map((v: string) => `💎${v}`);
 
-          return (
-            <div
-              key={indx}
-              className={`w-full md:w-[300px] flex flex-col gap-y-2 border border-[#262C33]   pt-3 relative ${
-                Isregen ? matchingItemForRegen?.value == 0 ? "opacity-20" : "opacity-100":"opacity-100"
-              }`}
-            >
-              <div>
-                <LazyLoadImage className="m-auto" src={checkicon.src} />
-              </div>
-              <div className="m-auto ">
-                <p className="text-center text-xl uppercase px-4  font-bold">
-                  {isThereValue && !IsThisArrayvalue && `${value}%`} {e.name}
-                </p>
-              </div>
-              <div>
-                <p className="text-center globaldarktext text-sm px-4">
-                  {IsThisArrayvalue && valuesArray.join(", ")} {e.dyamicInfo}
-                </p>
-              </div>
+            const Rere = boster?.find(
+              (item: any) =>
+                item.trait_type && item.trait_type.trim() === "Rarity"
+            );
 
-              {e.type && (
-                <div className="boost-stat flex justify-center items-center relative   ">
-                  <p className="absolute mt-[2rem] text-center text-[14px]">
-                    {e.type}
+            // @dev it will check if its unavailable for this Rarity or not
+            const matchNotAllowFound =
+              e.showcondition &&
+              Rere &&
+              e.unavailable.some((el: any) => el === Rere.value);
+
+            return (
+              <div
+                key={indx}
+                className={`w-full md:w-[300px] block gap-y-2 border border-[#262C33]   pt-3 relative ${
+                  Isregen
+                    ? matchingItemForRegen?.value == 0 || matchNotAllowFound
+                      ? "opacity-20"
+                      : "opacity-100"
+                    : "opacity-100"
+                }`}
+              >
+                <div>
+                  <LazyLoadImage className="m-auto" src={checkicon.src} />
+                </div>
+                <div className="m-auto ">
+                  <p className="text-center text-2xl uppercase px-4  font-bold m-4">
+                    {isThereValue && !IsThisArrayvalue && `${value}%`} {e.name}
                   </p>
                 </div>
-              )}
-            </div>
-          );
-        })}
+                <div>
+                  <p className="text-center text-[#827A8E] font-extrabold globaldarktext text-sm px-4 mb-8">
+                    {IsThisArrayvalue && valuesArray.join(", ")} {e.dyamicInfo}
+                  </p>
+                </div>
+
+                {e.type && (
+                  <div className="boost-stat flex justify-center items-center relative   ">
+                    <p className="absolute mt-[2rem] text-center text-[14px]">
+                      {e.type}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })
+        }
       </div>
     </div>
   );

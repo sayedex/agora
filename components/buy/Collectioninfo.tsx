@@ -324,11 +324,11 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
       <Description description={description} />
       {/* Description */}
       {/* Attributes */}
-      <Attributes metadata={metadata} Isregen={Isregen} />
+      <Attributes metadata={metadata} Isregen={Isregen} rarity={rarity} />
       {/* Attributes */}
 
       {/* traits */}
-      <Nftboost metadata={metadata} Isregen={Isregen} />
+      <Nftboost metadata={metadata} Isregen={Isregen} buypagerarity={rarity}  />
       {/* traits */}
       {/* static content */}
       <Coming />

@@ -10,9 +10,10 @@ import { Bost } from "../../config";
 type Props = {
   metadata: NFTMetadata | null;
   Isregen?: Boolean;
+  buypagerarity: string;
 };
 
-export function Nftboost({ metadata, Isregen }: Props) {
+export function Nftboost({ metadata, Isregen, buypagerarity }: Props) {
   const boster: any = metadata?.attributes;
 
   return (
@@ -87,6 +88,17 @@ export function Nftboost({ metadata, Isregen }: Props) {
               Rere &&
               e.unavailable.some((el: any) => el === Rere.value);
 
+            // @dev it will check if its unavailable for this Rarity or not
+            const rarityText = String(buypagerarity)
+              .toLowerCase()
+              .replace(/^\w/, (c) => c.toUpperCase());
+
+            const matchNotAllowFoundForBuypage =
+              e.showcondition &&
+              e.unavailable.some((el: any) => {
+                return el == rarityText;
+              });
+
             return (
               <div
                 key={indx}
@@ -95,6 +107,8 @@ export function Nftboost({ metadata, Isregen }: Props) {
                     ? matchingItemForRegen?.value == 0 || matchNotAllowFound
                       ? "opacity-20"
                       : "opacity-100"
+                    : matchNotAllowFoundForBuypage
+                    ? "opacity-20"
                     : "opacity-100"
                 }`}
               >
@@ -107,9 +121,16 @@ export function Nftboost({ metadata, Isregen }: Props) {
                   </p>
                 </div>
                 <div>
-                  <p className="text-center text-[#827A8E] font-extrabold globaldarktext text-sm px-4 mb-8">
-                    {IsThisArrayvalue && valuesArray.join(", ")} {e.dyamicInfo}
-                  </p>
+                  {Isregen ? (
+                    <p className="text-center text-[#827A8E] font-extrabold globaldarktext text-sm px-4 mb-8">
+                      {IsThisArrayvalue && valuesArray.join(", ")}{" "}
+                      {e.dyamicInfo}
+                    </p>
+                  ) : (
+                    <p className="text-center text-[#827A8E] font-extrabold globaldarktext text-sm px-4 mb-8">
+                      {e.traits_info}
+                    </p>
+                  )}
                 </div>
 
                 {e.type && (

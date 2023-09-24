@@ -34,6 +34,14 @@ const rarityStrings = {
   SecretRare: "Secret rare",
 };
 
+export const ATTRIBUTES_COUNT_AMOUNT = {
+  Common: 1,
+  Uncommon: 2,
+  Rare: 3,
+  UltraRare: 4,
+  SecretRare: 5,
+};
+
 export const depositInfo1 = [
   "To purchase digital collectables on AGORA you first need to deposit funds into the escrow wallet.",
   "Once transferred your credit balance will update in the 'My AGORA' section within 1-5 minutes. You can then use your balance to purchase any of the NFTs available on AGORA.",

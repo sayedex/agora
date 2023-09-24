@@ -4,13 +4,14 @@ import { ATTRIBUTES } from "../../config/collection";
 import chainlink from "../../public/icon/chainlink.png";
 import { NFTMetadata } from '../../typeing';
 import AttributesComponent from "./Helper/AttributesComponent"
-
+import { ATTRIBUTES_COUNT_AMOUNT,RareColor } from "../../config";
 type Props = {
   metadata:NFTMetadata | null;
-  Isregen?:Boolean 
+  Isregen?:Boolean ,
+  rarity:string
 };
 
-export function Attributes({metadata,Isregen}: Props) {
+export function Attributes({metadata,Isregen,rarity}: Props) {
   const Attributes = {
     Luck: 0,
     Might: 0,
@@ -19,7 +20,10 @@ export function Attributes({metadata,Isregen}: Props) {
     Wit: 0,
   };
 
-  
+  const rarityText = String(rarity).replace(/\s/g, "");
+  const secretRareColor = RareColor[rarityText as keyof typeof RareColor];
+
+
   const data:any =metadata?metadata.character_traits:Attributes;
 
   return (
@@ -28,7 +32,9 @@ export function Attributes({metadata,Isregen}: Props) {
         Attributes
       </h2>
       <p className="text-sm text-center">
-        UPON MINTING ULTRA RARE NFTS ARE GIVEN 4 OF 5 RANDOM ATTRIBUTES THAT
+        UPON MINTING <span style={{
+          color:secretRareColor
+        }}>{rarity}</span> NFTS ARE GIVEN {ATTRIBUTES_COUNT_AMOUNT[rarityText as keyof typeof ATTRIBUTES_COUNT_AMOUNT]} OF 5 RANDOM ATTRIBUTES THAT
         HAVE A RANDOM POWER SCALE FROM 1-100.
       </p>
 

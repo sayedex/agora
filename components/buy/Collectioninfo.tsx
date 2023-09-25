@@ -8,6 +8,7 @@ import { Coming } from "./Coming";
 import { product } from "../../store/productSlice";
 import { useAppSelector, useAppdispatch } from "../../hooks/redux";
 import { BuynftUser } from "../../store/reducers/buy";
+import { useRouter } from "next/router";
 import { RareColor } from "../../config";
 import { handleNotification } from "../../utils/Notification";
 import userService from "../../services/userService";
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
+  const router = useRouter();
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppdispatch();
   const { address } = useAccount();
@@ -163,8 +165,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
             fetchLastGenerationTime()
             setRegenTime(false);
             fetchNFTMetadata();
-          },40 * 1000); // 30s
-
+          },Number(process.env.NEXT_PUBLIC_TIMER) * 1000)// 30s
           setbuyloading(false);
         })
         .catch((e) => {
@@ -198,13 +199,20 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
       const response = userService
         .Buynft(data)
         .then((e) => {
-   
+          const data = e.data.tokenId;
           reloadUserbalance();
-          console.log("done");
+          console.log(e,"doneeeee");
+  
+          setTimeout(() => {
+            // if its done then refetch the last timestamp..
+         fetchLastGenerationTime()
+         setbuyloading(false);
+          router.push(`/regen?id=${productid}&&token=${data}`);
           toast.success(`NFT brought successfully`, {
             position: "bottom-right",
           });
-          setbuyloading(false);
+       },Number(process.env.NEXT_PUBLIC_TIMER) * 1000)
+          
         })
         
         .catch((e) => {
@@ -259,7 +267,7 @@ export function Collectioninfo({ product, id, Isregen, tokenid }: Props) {
         <div className="w-fit">
           <p
             style={{ backgroundColor: secretRareColor }}
-            className={` px-[5px] text-black`}
+            className={` px-[10px] text-black uppercase  font-extrabold`}
           >
             {rarity}
           </p>

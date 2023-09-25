@@ -5,7 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import checkicon from "../../public/icon/check.svg";
 import SILVERVOLT_LOGO from "../../public/icon/SILVERVOLT_LOGO.webp";
 import { NFTMetadata } from "../../typeing";
-import { Bost } from "../../config";
+import {defaultBOOST} from "../../utils/Boosts"
 
 type Props = {
   metadata: NFTMetadata | null;
@@ -15,6 +15,8 @@ type Props = {
 
 export function Nftboost({ metadata, Isregen, buypagerarity }: Props) {
   const boster: any = metadata?.attributes;
+  const Bost = defaultBOOST(buypagerarity);
+  
 
   return (
     <div>

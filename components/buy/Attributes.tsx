@@ -22,7 +22,7 @@ export function Attributes({metadata,Isregen,rarity}: Props) {
 
   const rarityText = String(rarity).replace(/\s/g, "");
   const secretRareColor = RareColor[rarityText as keyof typeof RareColor];
-
+  const rarityTextForshow = String(rarity).charAt(0).toUpperCase() + String(rarity).slice(1).toLowerCase();
 
   const data:any =metadata?metadata.character_traits:Attributes;
 
@@ -34,7 +34,7 @@ export function Attributes({metadata,Isregen,rarity}: Props) {
       <p className="text-sm text-center">
         UPON MINTING <span style={{
           color:secretRareColor
-        }}>{rarity}</span> NFTS ARE GIVEN {ATTRIBUTES_COUNT_AMOUNT[rarityText as keyof typeof ATTRIBUTES_COUNT_AMOUNT]} OF 5 RANDOM ATTRIBUTES THAT
+        }}>{rarityTextForshow}</span> NFTS ARE GIVEN {ATTRIBUTES_COUNT_AMOUNT[rarityText as keyof typeof ATTRIBUTES_COUNT_AMOUNT]} OF 5 RANDOM ATTRIBUTES THAT
         HAVE A RANDOM POWER SCALE FROM 1-100.
       </p>
 

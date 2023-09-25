@@ -26,7 +26,7 @@ export const RareColor = {
   Common: "#D9D9D9",
 };
 
-const rarityStrings = {
+export const rarityStrings = {
   Common: "Common",
   Uncommon: "Uncommon",
   Rare: "Rare",
@@ -41,6 +41,43 @@ export const ATTRIBUTES_COUNT_AMOUNT = {
   UltraRare: 4,
   SecretRare: 5,
 };
+
+export const MAX_MINTING_BOOST_PWR = {
+  Common: 4,
+  Uncommon: 5,
+  Rare: 6,
+  UltraRare: 8,
+  SecretRare: 10,
+};
+
+export const MAX_WHEEL_BOOST_PWR=  {
+  Common: 40,
+  Uncommon: 50,
+  Rare: 60,
+  UltraRare: 70,
+  SecretRare: 80,
+}
+export const MAX_REFERRAL_BOOST_PWR=  {
+  Common: 1,
+  Uncommon: 1.5,
+  Rare: 2,
+  UltraRare: 4,
+  SecretRare: 4,
+}
+export const MAX_LOTTERY_BOOST_PWR=  {
+  Common: 40,
+  Uncommon: 50,
+  Rare: 60,
+  UltraRare: 70,
+  SecretRare: 80,
+}
+export const MAX_TIER_BOOST_PWR=  {
+  Common: "Common NFTs-Tier",
+  Uncommon: "Silver-Tier",
+  Rare: "Gold-Tier",
+  UltraRare: "Platinum-Tier",
+  SecretRare: "Diamond-Tier",
+}
 
 export const depositInfo1 = [
   "To purchase digital collectables on AGORA you first need to deposit funds into the escrow wallet.",
